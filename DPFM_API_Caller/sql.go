@@ -24,9 +24,11 @@ func (c *DPFMAPICaller) readSqlProcess(
 	// var headerDoc *[]dpfm_api_output_formatter.HeaderDoc
 	var item *[]dpfm_api_output_formatter.Item
 	var itemComponent *[]dpfm_api_output_formatter.ItemComponent
-	var itemComponentStockConfirmation *[]dpfm_api_output_formatter.ItemComponentStockConfirmation
+	var itemComponentDeliveryScheduleLine *[]dpfm_api_output_formatter.ItemComponentDeliveryScheduleLine
 	var itemComponentCosting *[]dpfm_api_output_formatter.ItemComponentCosting
 	var itemOperation *[]dpfm_api_output_formatter.ItemOperation
+	var itemOperationComponent *[]dpfm_api_output_formatter.ItemOperationComponent
+	var itemOperationCosting *[]dpfm_api_output_formatter.ItemOperationCosting
 	var headersByOwnerProductionPlantBusinessPartner *[]dpfm_api_output_formatter.HeadersByOwnerProductionPlantBusinessPartner
 
 	for _, fn := range accepter {
@@ -35,9 +37,9 @@ func (c *DPFMAPICaller) readSqlProcess(
 			func() {
 				header = c.Header(mtx, input, output, errs, log)
 			}()
-		case "Headers":
+		case "HeadersByOwnerProductionPlantBP":
 			func() {
-				header = c.Headers(mtx, input, output, errs, log)
+				header = c.HeadersByOwnerProductionPlantBP(mtx, input, output, errs, log)
 			}()
 		case "Item":
 			func() {
@@ -55,9 +57,9 @@ func (c *DPFMAPICaller) readSqlProcess(
 			func() {
 				itemComponent = c.ItemComponents(mtx, input, output, errs, log)
 			}()
-		case "ItemComponentStockConfirmation":
+		case "ItemComponentDeliveryScheduleLine":
 			func() {
-				itemComponentStockConfirmation = c.ItemComponentStockConfirmation(mtx, input, output, errs, log)
+				itemComponentDeliveryScheduleLine = c.ItemComponentDeliveryScheduleLine(mtx, input, output, errs, log)
 			}()
 		case "ItemComponentCosting":
 			func() {
@@ -71,6 +73,14 @@ func (c *DPFMAPICaller) readSqlProcess(
 			func() {
 				itemOperation = c.ItemOperations(mtx, input, output, errs, log)
 			}()
+		case "ItemOperationComponent":
+			func() {
+				itemOperationComponent = c.ItemOperationComponent(mtx, input, output, errs, log)
+			}()
+		case "ItemOperationCosting":
+			func() {
+				itemOperationCosting = c.ItemOperationCosting(mtx, input, output, errs, log)
+			}()
 		case "HeadersByOwnerProductionPlantBusinessPartner":
 			func() {
 				headersByOwnerProductionPlantBusinessPartner = c.HeadersByOwnerProductionPlantBusinessPartner(mtx, input, output, errs, log)
@@ -83,12 +93,14 @@ func (c *DPFMAPICaller) readSqlProcess(
 	}
 
 	data := &dpfm_api_output_formatter.Message{
-		Header:                         header,
-		Item:                           item,
-		ItemComponent:                  itemComponent,
-		ItemComponentStockConfirmation: itemComponentStockConfirmation,
-		ItemComponentCosting:           itemComponentCosting,
-		ItemOperation:                  itemOperation,
+		Header:                            header,
+		Item:                              item,
+		ItemComponent:                     itemComponent,
+		ItemComponentDeliveryScheduleLine: itemComponentDeliveryScheduleLine,
+		ItemComponentCosting:              itemComponentCosting,
+		ItemOperation:                     itemOperation,
+		ItemOperationComponent:            itemOperationComponent,
+		ItemOperationCosting:              itemOperationCosting,
 		HeadersByOwnerProductionPlantBusinessPartner: headersByOwnerProductionPlantBusinessPartner,
 	}
 	return data
@@ -122,7 +134,7 @@ func (c *DPFMAPICaller) Header(
 	return data
 }
 
-func (c *DPFMAPICaller) Headers(
+func (c *DPFMAPICaller) HeadersByOwnerProductionPlantBP(
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
@@ -130,14 +142,11 @@ func (c *DPFMAPICaller) Headers(
 	log *logger.Logger,
 ) *[]dpfm_api_output_formatter.Header {
 	where := "WHERE 1 = 1"
-	if input.Header.ProductionOrderType != nil {
-		where = fmt.Sprintf("%s\nAND ProductionOrderType = '%s'", where, *input.Header.ProductionOrderType)
+	if input.Header.IsReleased != nil {
+		where = fmt.Sprintf("%s\nAND IsReleased = %v", where, *input.Header.IsReleased)
 	}
-	if input.Header.HeaderIsReleased != nil {
-		where = fmt.Sprintf("%s\nAND HeaderIsReleased = %v", where, *input.Header.HeaderIsReleased)
-	}
-	if input.Header.HeaderIsMarkedForDeletion != nil {
-		where = fmt.Sprintf("%s\nAND HeaderIsMarkedForDeletion = %v", where, *input.Header.HeaderIsMarkedForDeletion)
+	if input.Header.IsMarkedForDeletion != nil {
+		where = fmt.Sprintf("%s\nAND IsMarkedForDeletion = %v", where, *input.Header.IsMarkedForDeletion)
 	}
 	if input.Header.OwnerProductionPlantBusinessPartner != nil {
 		where = fmt.Sprintf("%s\nAND OwnerProductionPlantBusinessPartner = %d", where, *input.Header.OwnerProductionPlantBusinessPartner)
@@ -275,9 +284,12 @@ func (c *DPFMAPICaller) ItemComponent(
 
 	cnt := 0
 	for _, v := range item {
-		itemComponent := v.ItemComponent
-		for _, w := range itemComponent {
-			args = append(args, productionOrder, v.ProductionOrderItem, w.Operations, w.OperationsItem, w.BillOfMaterial, w.BillOfMaterialItem)
+		itemOperation := v.ItemOperation
+		for _, w := range itemOperation {
+			itemOperationComponent := w.ItemOperationComponent
+			for _, x := range itemOperationComponent {
+				args = append(args, productionOrder, v.ProductionOrderItem, x.Operations, x.OperationsItem, x.BillOfMaterial, x.BillOfMaterialItem)
+			}
 		}
 		cnt++
 	}
@@ -376,8 +388,8 @@ func (c *DPFMAPICaller) ItemOperations(
 		}
 	}
 	if itemOperation != nil {
-		if itemOperation.OperationIsMarkedForDeletion != nil {
-			where = fmt.Sprintf("%s\nAND OperationIsMarkedForDeletion = %v", where, *itemOperation.OperationIsMarkedForDeletion)
+		if itemOperation.IsMarkedForDeletion != nil {
+			where = fmt.Sprintf("%s\nAND IsMarkedForDeletion = %v", where, *itemOperation.IsMarkedForDeletion)
 		}
 	}
 
@@ -400,24 +412,24 @@ func (c *DPFMAPICaller) ItemOperations(
 	return data
 }
 
-func (c *DPFMAPICaller) ItemComponentStockConfirmation(
+func (c *DPFMAPICaller) ItemComponentDeliveryScheduleLine(
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
 	errs *[]error,
 	log *logger.Logger,
-) *[]dpfm_api_output_formatter.ItemComponentStockConfirmation {
+) *[]dpfm_api_output_formatter.ItemComponentDeliveryScheduleLine {
 	var args []interface{}
 	productionOrder := input.Header.ProductionOrder
 	item := input.Header.Item
 
 	cnt := 0
 	for _, v := range item {
-		itemComponent := v.ItemComponent
-		for _, w := range itemComponent {
-			itemComponentStockConfirmation := w.ItemComponentStockConfirmation
-			for range itemComponentStockConfirmation {
-				args = append(args, productionOrder, v.ProductionOrderItem, w.Operations, w.OperationsItem, w.BillOfMaterial, w.BillOfMaterialItem)
+		itemOperation := v.ItemOperation
+		for _, w := range itemOperation {
+			itemOperationComponent := w.ItemOperationComponent
+			for _, x := range itemOperationComponent {
+				args = append(args, productionOrder, v.ProductionOrderItem, x.Operations, x.OperationsItem, x.BillOfMaterial, x.BillOfMaterialItem)
 			}
 		}
 		cnt++
@@ -436,7 +448,7 @@ func (c *DPFMAPICaller) ItemComponentStockConfirmation(
 	}
 	defer rows.Close()
 
-	data, err := dpfm_api_output_formatter.ConvertToItemComponentStockConfirmation(rows)
+	data, err := dpfm_api_output_formatter.ConvertToItemComponentDeliveryScheduleLine(rows)
 	if err != nil {
 		*errs = append(*errs, err)
 		return nil
@@ -458,15 +470,16 @@ func (c *DPFMAPICaller) ItemComponentCosting(
 
 	cnt := 0
 	for _, v := range item {
-		itemComponent := v.ItemComponent
-		for _, w := range itemComponent {
-			itemComponentCosting := w.ItemComponentCosting
-			for range itemComponentCosting {
-				args = append(args, productionOrder, v.ProductionOrderItem, w.Operations, w.OperationsItem)
+		itemOperation := v.ItemOperation
+		for _, w := range itemOperation {
+			itemOperationComponent := w.ItemOperationComponent
+			for _, x := range itemOperationComponent {
+				args = append(args, productionOrder, v.ProductionOrderItem, x.Operations, x.OperationsItem)
 			}
 		}
 		cnt++
 	}
+
 	repeat := strings.Repeat("(?,?,?,?),", cnt-1) + "(?,?,?,?)"
 
 	rows, err := c.db.Query(
@@ -529,5 +542,95 @@ func (c *DPFMAPICaller) ItemOperation(
 		return nil
 	}
 
+	return data
+}
+
+func (c *DPFMAPICaller) ItemOperationComponent(
+	mtx *sync.Mutex,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	errs *[]error,
+	log *logger.Logger,
+) *[]dpfm_api_output_formatter.ItemOperationComponent {
+	var args []interface{}
+	productionOrder := input.Header.ProductionOrder
+	item := input.Header.Item
+
+	cnt := 0
+	for _, v := range item {
+		itemOperation := v.ItemOperation
+		for _, w := range itemOperation {
+			itemOperationComponent := w.ItemOperationComponent
+			for _, x := range itemOperationComponent {
+				args = append(args, productionOrder, v.ProductionOrderItem, x.Operations, x.OperationsItem)
+			}
+		}
+		cnt++
+	}
+
+	repeat := strings.Repeat("(?,?,?,?),", cnt-1) + "(?,?,?,?)"
+
+	rows, err := c.db.Query(
+		`SELECT *
+		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_item_operation_component_data
+		WHERE (ProductionOrder, ProductionOrderItem, Operations, OperationsItem) IN ( `+repeat+` ) 
+		ORDER BY ProductionOrder DESC, OperationsItem ASC;`, args...,
+	)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
+	defer rows.Close()
+
+	data, err := dpfm_api_output_formatter.ConvertToItemOperationComponent(rows)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
+	return data
+}
+
+func (c *DPFMAPICaller) ItemOperationCosting(
+	mtx *sync.Mutex,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	errs *[]error,
+	log *logger.Logger,
+) *[]dpfm_api_output_formatter.ItemOperationCosting {
+	var args []interface{}
+	productionOrder := input.Header.ProductionOrder
+	item := input.Header.Item
+
+	cnt := 0
+	for _, v := range item {
+		itemOperation := v.ItemOperation
+		for _, w := range itemOperation {
+			itemOperationCosting := w.ItemOperationCosting
+			for _, x := range itemOperationCosting {
+				args = append(args, productionOrder, v.ProductionOrderItem, x.Operations, x.OperationsItem)
+			}
+		}
+		cnt++
+	}
+
+	repeat := strings.Repeat("(?,?,?,?),", cnt-1) + "(?,?,?,?)"
+
+	rows, err := c.db.Query(
+		`SELECT *
+		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_item_operation_costing_data
+		WHERE (ProductionOrder, ProductionOrderItem, Operations, OperationsItem) IN ( `+repeat+` ) 
+		ORDER BY ProductionOrder DESC, OperationsItem ASC;`, args...,
+	)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
+	defer rows.Close()
+
+	data, err := dpfm_api_output_formatter.ConvertToItemOperationCosting(rows)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
 	return data
 }

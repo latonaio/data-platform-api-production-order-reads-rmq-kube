@@ -14,25 +14,39 @@ func ConvertToHeader(rows *sql.Rows) (*[]Header, error) {
 		pm := Header{}
 		err := rows.Scan(
 			&pm.ProductionOrder,
+			&pm.SupplyChainRelationshipID,
+			&pm.SupplyChainRelationshipProductionPlantID,
+			&pm.SupplyChainRelationshipDeliveryID,
+			&pm.SupplyChainRelationshipDeliveryPlantID,
 			&pm.ProductionOrderType,
-			&pm.CreationDate,
-			&pm.LastChangeDate,
-			&pm.HeaderIsReleased,
-			&pm.HeaderIsPartiallyConfirmed,
-			&pm.HeaderIsConfirmed,
-			&pm.HeaderIsLocked,
-			&pm.HeaderIsMarkedForDeletion,
 			&pm.Product,
-			&pm.OwnerProductionPlant,
+			&pm.Buyer,
+			&pm.Seller,
 			&pm.OwnerProductionPlantBusinessPartner,
+			&pm.OwnerProductionPlant,
 			&pm.OwnerProductionPlantStorageLocation,
+			&pm.DepartureDeliverFromParty,
+			&pm.DepartureDeliverFromPlant,
+			&pm.DepartureDeliverFromPlantStorageLocation,
+			&pm.DestinationDeliverToParty,
+			&pm.DestinationDeliverToPlant,
+			&pm.DestinationDeliverToPlantStorageLocation,
+			&pm.ProductBaseUnit,
 			&pm.MRPArea,
 			&pm.MRPController,
-			&pm.ProductionSupervisor,
 			&pm.ProductionVersion,
-			&pm.PlannedOrder,
-			&pm.OrderID,
-			&pm.OrderItem,
+			&pm.BillOfMaterial,
+			&pm.Operations,
+			&pm.ProductionOrderQuantityInBaseUnit,
+			&pm.ProductionOrderQuantityInDepartureProductionUnit,
+			&pm.ProductionOrderQuantityInDestinationProductionUnit,
+			&pm.ProductionOrderQuantityInDepartureDeliveryUnit,
+			&pm.ProductionOrderQuantityInDestinationDeliveryUnit,
+			&pm.ProductionOrderDepartureProductionUnit,
+			&pm.ProductionOrderDestinationProductionUnit,
+			&pm.ProductionOrderDepartureDeliveryUnit,
+			&pm.ProductionOrderDestinationDeliveryUnit,
+			&pm.ProductionOrderPlannedScrapQtyInBaseUnit,
 			&pm.ProductionOrderPlannedStartDate,
 			&pm.ProductionOrderPlannedStartTime,
 			&pm.ProductionOrderPlannedEndDate,
@@ -43,11 +57,20 @@ func ConvertToHeader(rows *sql.Rows) (*[]Header, error) {
 			&pm.ProductionOrderActualStartTime,
 			&pm.ProductionOrderActualEndDate,
 			&pm.ProductionOrderActualEndTime,
-			&pm.ProductionUnit,
-			&pm.TotalQuantity,
-			&pm.PlannedScrapQuantity,
-			&pm.ConfirmedYieldQuantity,
+			&pm.PlannedOrder,
+			&pm.OrderID,
+			&pm.OrderItem,
 			&pm.ProductionOrderHeaderText,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsPartiallyConfirmed,
+			&pm.IsConfirmed,
+			&pm.IsLocked,
+			&pm.IsCancelled,
+			&pm.IsMarkedForDeletion,
 		)
 		if err != nil {
 			fmt.Printf("err = %+v \n", err)
@@ -73,33 +96,40 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 		err := rows.Scan(
 			&pm.ProductionOrder,
 			&pm.ProductionOrderItem,
-			&pm.CreationDate,
-			&pm.LastChangeDate,
-			&pm.ItemIsReleased,
-			&pm.ItemIsPartiallyConfirmed,
-			&pm.ItemIsConfirmed,
-			&pm.ItemIsLocked,
-			&pm.ItemIsMarkedForDeletion,
-			&pm.ProductionOrderHasGeneratedOperations,
-			&pm.ProductAvailabilityIsNotChecked,
-			&pm.PrecedingItem,
-			&pm.FollowingItem,
+			&pm.PrecedingProductionOrderItem,
+			&pm.FollowingProductionOrderItem,
+			&pm.SupplyChainRelationshipID,
+			&pm.SupplyChainRelationshipProductionPlantID,
+			&pm.SupplyChainRelationshipDeliveryID,
+			&pm.SupplyChainRelationshipDeliveryPlantID,
+			&pm.ProductionOrderType,
 			&pm.Product,
-			&pm.ProductionPlant,
+			&pm.Buyer,
+			&pm.Seller,
 			&pm.ProductionPlantBusinessPartner,
+			&pm.ProductionPlant,
 			&pm.ProductionPlantStorageLocation,
+			&pm.DeliverToParty,
+			&pm.DeliverToPlant,
+			&pm.DeliverToPlantStorageLocation,
+			&pm.DeliverFromParty,
+			&pm.DeliverFromPlant,
+			&pm.DeliverFromPlantStorageLocation,
 			&pm.MRPArea,
 			&pm.MRPController,
-			&pm.ProductionSupervisor,
 			&pm.ProductionVersion,
-			&pm.PlannedOrder,
-			&pm.OrderID,
-			&pm.OrderItem,
-			&pm.MinimumLotSizeQuantity,
-			&pm.StandardLotSizeQuantity,
-			&pm.LotSizeRoundingQuantity,
-			&pm.MaximumLotSizeQuantity,
-			&pm.LotSizeIsFixed,
+			&pm.ProductionVersionItem,
+			&pm.BillOfMaterial,
+			&pm.Operations,
+			&pm.ProductionOrderQuantityInBaseUnit,
+			&pm.ProductionOrderQuantityInProductionUnit,
+			&pm.ProductionOrderQuantityInDeliveryUnit,
+			&pm.ProductionOrderPlannedScrapQtyInBaseUnit,
+			&pm.ProductionOrderMinimumLotSizeQuantity,
+			&pm.ProductionOrderStandardLotSizeQuantity,
+			&pm.ProductionOrderMaximumLotSizeQuantity,
+			&pm.ProductionOrderLotSizeRoundingQuantity,
+			&pm.ProductionOrderLotSizeIsFixed,
 			&pm.ProductionOrderPlannedStartDate,
 			&pm.ProductionOrderPlannedStartTime,
 			&pm.ProductionOrderPlannedEndDate,
@@ -110,11 +140,31 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 			&pm.ProductionOrderActualStartTime,
 			&pm.ProductionOrderActualEndDate,
 			&pm.ProductionOrderActualEndTime,
-			&pm.ProductionUnit,
-			&pm.TotalQuantity,
-			&pm.PlannedScrapQuantity,
-			&pm.ConfirmedYieldQuantity,
+			&pm.ConfirmedYieldQuantityInBaseUnit,
+			&pm.ConfirmedYieldQuantityInProductionUnit,
+			&pm.ScrappedQuantityInBaseUnit,
+			&pm.PlannedOrder,
+			&pm.PlannedOrderItem,
+			&pm.OrderID,
+			&pm.OrderItem,
+			&pm.ProductIsBatchManagedInProductionPlant,
+			&pm.BatchMgmtPolicyInProductionOrder,
+			&pm.ProductionOrderTargetedBatch,
+			&pm.ProductionOrderTargetedBatchValidityStartDate,
+			&pm.ProductionOrderTargetedBatchValidityStartTime,
+			&pm.ProductionOrderTargetedBatchValidityEndDate,
+			&pm.ProductionOrderTargetedBatchValidityEndTime,
 			&pm.ProductionOrderItemText,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsPartiallyConfirmed,
+			&pm.IsConfirmed,
+			&pm.IsLocked,
+			&pm.IsCancelled,
+			&pm.IsMarkedForDeletion,
 		)
 		if err != nil {
 			fmt.Printf("err = %+v \n", err)
@@ -140,39 +190,57 @@ func ConvertToItemComponent(rows *sql.Rows) (*[]ItemComponent, error) {
 		err := rows.Scan(
 			&pm.ProductionOrder,
 			&pm.ProductionOrderItem,
-			&pm.Operations,
-			&pm.OperationsItem,
 			&pm.BillOfMaterial,
 			&pm.BillOfMaterialItem,
-			&pm.Reservation,
-			&pm.ReservationItem,
+			&pm.SupplyChainRelationshipID,
+			&pm.SupplyChainRelationshipDeliveryID,
+			&pm.SupplyChainRelationshipDeliveryPlantID,
+			&pm.SupplyChainRelationshipStockConfPlantID,
+			&pm.ProductionPlantBusinessPartner,
+			&pm.ProductionPlant,
 			&pm.ComponentProduct,
+			&pm.ComponentProductBuyer,
+			&pm.ComponentProductSeller,
+			&pm.ComponentProductDeliverToParty,
+			&pm.ComponentProductDeliverToPlant,
+			&pm.ComponentProductDeliverFromParty,
+			&pm.ComponentProductDeliverFromPlant,
+			&pm.ComponentProductBaseUnit,
+			&pm.ComponentProductDeliveryUnit,
 			&pm.ComponentProductRequirementDate,
 			&pm.ComponentProductRequirementTime,
+			&pm.ComponentProductRequiredQuantityInBaseUnit,
+			&pm.ComponentProductRequiredQuantityInDeliveryUnit,
+			&pm.ComponentProductPlannedScrapInPercent,
 			&pm.ComponentProductIsMarkedForBackflush,
-			&pm.ComponentProductBusinessPartner,
+			&pm.BillOfMaterialItemText,
+			&pm.StockConfirmationBusinessPartner,
 			&pm.StockConfirmationPlant,
+			&pm.StockConfirmationPlantStorageLocation,
+			&pm.MRPArea,
+			&pm.MRPController,
+			&pm.ProductionVersion,
+			&pm.ProductionVersionItem,
 			&pm.PlannedOrder,
-			&pm.OrderID,
-			&pm.OrderItem,
-			&pm.SortField,
-			&pm.BOMItemDescription,
-			&pm.StorageLocation,
-			&pm.Batch,
-			&pm.GoodsRecipientName,
-			&pm.UnloadingPointName,
-			&pm.ProductCompIsAlternativeItem,
-			&pm.CostingPolicy,
-			&pm.PriceUnitQty,
-			&pm.StandardPrice,
-			&pm.MovingAveragePrice,
-			&pm.ComponentScrapInPercent,
-			&pm.OperationScrapInPercent,
-			&pm.BaseUnit,
-			&pm.RequiredQuantity,
-			&pm.WithdrawnQuantity,
-			&pm.ConfirmedAvailableQuantity,
-			&pm.ProductCompOriginalQuantity,
+			&pm.PlannedOrderItem,
+			&pm.ComponentProductBatch,
+			&pm.ComponentProductBatchValidityStartDate,
+			&pm.ComponentProductBatchValidityStartTime,
+			&pm.ComponentProductBatchValidityEndDate,
+			&pm.ComponentProductBatchValidityEndTime,
+			&pm.ComponentProductCostingPolicy,
+			&pm.ComponentProductPriceUnitQty,
+			&pm.ComponentProductStandardPrice,
+			&pm.ComponentProductMovingAveragePrice,
+			&pm.ComponentProductWithdrawnQuantity,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.ComponentProductAvailabilityIsNotChecked,
+			&pm.IsReleased,
+			&pm.IsLocked,
+			&pm.IsCancelled,
 			&pm.IsMarkedForDeletion,
 		)
 		if err != nil {
@@ -189,37 +257,63 @@ func ConvertToItemComponent(rows *sql.Rows) (*[]ItemComponent, error) {
 	return &itemComponent, nil
 }
 
-func ConvertToItemComponentStockConfirmation(rows *sql.Rows) (*[]ItemComponentStockConfirmation, error) {
+func ConvertToItemComponentDeliveryScheduleLine(rows *sql.Rows) (*[]ItemComponentDeliveryScheduleLine, error) {
 	defer rows.Close()
-	itemComponentStockConfirmation := make([]ItemComponentStockConfirmation, 0)
+	itemComponentDeliveryScheduleLine := make([]ItemComponentDeliveryScheduleLine, 0)
 	i := 0
 	for rows.Next() {
 		i++
-		pm := ItemComponentStockConfirmation{}
+		pm := ItemComponentDeliveryScheduleLine{}
 		err := rows.Scan(
 			&pm.ProductionOrder,
 			&pm.ProductionOrderItem,
-			&pm.Operations,
-			&pm.OperationsItem,
 			&pm.BillOfMaterial,
 			&pm.BillOfMaterialItem,
-			&pm.InventoryStockType,
-			&pm.InventorySpecialStockType,
-			&pm.AvailableProductStock,
+			&pm.ScheduleLine,
+			&pm.SupplyChainRelationshipID,
+			&pm.SupplyChainRelationshipStockConfPlantID,
+			&pm.ComponentProduct,
+			&pm.StockConfirmationBusinessPartner,
+			&pm.StockConfirmationPlant,
+			&pm.StockConfirmationPlantTimeZone,
+			&pm.ComponentProductBatch,
+			&pm.ComponentProductBatchValidityStartDate,
+			&pm.ComponentProductBatchValidityStartTime,
+			&pm.ComponentProductBatchValidityEndDate,
+			&pm.ComponentProductBatchValidityEndTime,
+			&pm.RequestedDeliveryDate,
+			&pm.RequestedDeliveryTime,
+			&pm.ConfirmedDeliveryDate,
+			&pm.ConfirmedDeliveryTime,
+			&pm.OriginalRequiredQuantityInBaseUnit,
+			&pm.ConfirmedQuantityByPDTAvailCheckInBaseUnit,
+			&pm.OpenConfirmedQuantityInBaseUnit,
+			&pm.DeliveredQuantityInBaseUnit,
+			&pm.UndeliveredQuantityInBaseUnit,
+			&pm.StockIsFullyConfirmed,
+			&pm.PlusMinusFlag,
+			&pm.ItemScheduleLineDeliveryBlockStatus,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsLocked,
+			&pm.IsCancelled,
 			&pm.IsMarkedForDeletion,
 		)
 		if err != nil {
 			fmt.Printf("err = %+v \n", err)
-			return &itemComponentStockConfirmation, err
+			return &itemComponentDeliveryScheduleLine, err
 		}
-		itemComponentStockConfirmation = append(itemComponentStockConfirmation, pm)
+		itemComponentDeliveryScheduleLine = append(itemComponentDeliveryScheduleLine, pm)
 	}
 	if i == 0 {
 		fmt.Printf("DBに対象のレコードが存在しません。")
-		return &itemComponentStockConfirmation, nil
+		return &itemComponentDeliveryScheduleLine, nil
 	}
 
-	return &itemComponentStockConfirmation, nil
+	return &itemComponentDeliveryScheduleLine, nil
 }
 
 func ConvertToItemComponentCosting(rows *sql.Rows) (*[]ItemComponentCosting, error) {
@@ -232,13 +326,14 @@ func ConvertToItemComponentCosting(rows *sql.Rows) (*[]ItemComponentCosting, err
 		err := rows.Scan(
 			&pm.ProductionOrder,
 			&pm.ProductionOrderItem,
-			&pm.Operations,
-			&pm.OperationsItem,
 			&pm.BillOfMaterial,
 			&pm.BillOfMaterialItem,
-			&pm.ComponentProduct,
 			&pm.Currency,
 			&pm.CostingAmount,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
 			&pm.IsMarkedForDeletion,
 		)
 		if err != nil {
@@ -255,6 +350,44 @@ func ConvertToItemComponentCosting(rows *sql.Rows) (*[]ItemComponentCosting, err
 	return &itemComponentCosting, nil
 }
 
+func ConvertToItemOperationCosting(rows *sql.Rows) (*[]ItemOperationCosting, error) {
+	defer rows.Close()
+	itemOperationCosting := make([]ItemOperationCosting, 0)
+	i := 0
+	for rows.Next() {
+		i++
+		pm := ItemOperationCosting{}
+		err := rows.Scan(
+			&pm.ProductionOrder,
+			&pm.ProductionOrderItem,
+			&pm.Operations,
+			&pm.OperationsItem,
+			&pm.OperationsID,
+			&pm.Currency,
+			&pm.CostingAmount,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsLocked,
+			&pm.IsCancelled,
+			&pm.IsMarkedForDeletion,
+		)
+		if err != nil {
+			fmt.Printf("err = %+v \n", err)
+			return &itemOperationCosting, err
+		}
+		itemOperationCosting = append(itemOperationCosting, pm)
+	}
+	if i == 0 {
+		fmt.Printf("DBに対象のレコードが存在しません。")
+		return &itemOperationCosting, nil
+	}
+
+	return &itemOperationCosting, nil
+}
+
 func ConvertToItemOperation(rows *sql.Rows) (*[]ItemOperation, error) {
 	defer rows.Close()
 	itemOperation := make([]ItemOperation, 0)
@@ -267,29 +400,83 @@ func ConvertToItemOperation(rows *sql.Rows) (*[]ItemOperation, error) {
 			&pm.ProductionOrderItem,
 			&pm.Operations,
 			&pm.OperationsItem,
-			&pm.Sequence,
-			&pm.OperationsText,
-			&pm.SequenceText,
-			&pm.OperationIsReleased,
-			&pm.OperationIsPartiallyConfirmed,
-			&pm.OperationIsConfirmed,
-			&pm.OperationIsClosed,
-			&pm.OperationIsMarkedForDeletion,
+			&pm.OperationID,
+			&pm.SupplyChainRelationshipID,
+			&pm.SupplyChainRelationshipDeliveryID,
+			&pm.SupplyChainRelationshipDeliveryPlantID,
+			&pm.SupplyChainRelationshipProductionPlantID,
+			&pm.Product,
+			&pm.Buyer,
+			&pm.Seller,
+			&pm.DeliverToParty,
+			&pm.DeliverToPlant,
+			&pm.DeliverFromParty,
+			&pm.DeliverFromPlant,
+			&pm.ProductionPlantBusinessPartner,
 			&pm.ProductionPlant,
+			&pm.MRPArea,
+			&pm.MRPController,
+			&pm.ProductionVersion,
+			&pm.ProductionVersionItem,
+			&pm.Sequence,
+			&pm.SequenceText,
+			&pm.OperationText,
+			&pm.ProductBaseUnit,
+			&pm.ProductProductionUnit,
+			&pm.ProductOperationUnit,
+			&pm.ProductDeliveryUnit,
+			&pm.StandardLotSizeQuantity,
+			&pm.MinimumLotSizeQuantity,
+			&pm.MaximumLotSizeQuantity,
+			&pm.OperationPlannedQuantityInBaseUnit,
+			&pm.OperationPlannedQuantityInProductionUnit,
+			&pm.OperationPlannedQuantityInOperationUnit,
+			&pm.OperationPlannedQuantityInDeliveryUnit,
+			&pm.OperationPlannedScrapInPercent,
+			&pm.ResponsiblePlannerGroup,
+			&pm.PlainLongText,
 			&pm.WorkCenter,
+			&pm.CapacityCategoryCode,
+			&pm.OperationCostingRelevancyType,
+			&pm.OperationSetupType,
+			&pm.OperationSetupGroupCategory,
+			&pm.OperationSetupGroup,
+			&pm.MaximumWaitDuration,
+			&pm.StandardWaitDuration,
+			&pm.MinimumWaitDuration,
+			&pm.WaitDurationUnit,
+			&pm.MaximumQueDuration,
+			&pm.StandardQueueDuration,
+			&pm.MinimumQueueDuration,
+			&pm.QueDurationUnit,
+			&pm.MaximumMoveDuration,
+			&pm.StandardMoveDuration,
+			&pm.MinimumMoveDuration,
+			&pm.MoveDurationUnit,
+			&pm.StandardDeliveryDuration,
+			&pm.StandardDeliveryDurationUnit,
+			&pm.CostElement,
 			&pm.OperationErlstSchedldExecStrtDte,
 			&pm.OperationErlstSchedldExecStrtTme,
-			&pm.OperationErlstSchedldExecEndDate,
+			&pm.OperationErlstSchedldExecEndDte,
 			&pm.OperationErlstSchedldExecEndTme,
 			&pm.OperationActualExecutionStartDate,
 			&pm.OperationActualExecutionStartTime,
 			&pm.OperationActualExecutionEndDate,
 			&pm.OperationActualExecutionEndTime,
-			&pm.ErlstSchedldExecDurnInWorkdays,
-			&pm.OperationActualExecutionDays,
-			&pm.OperationUnit,
-			&pm.OperationPlannedTotalQuantity,
-			&pm.OperationTotalConfirmedYieldQuantity,
+			&pm.OperationConfirmedYieldQuantityInBaseUnit,
+			&pm.OperationConfirmedYieldQuantityInProductionUnit,
+			&pm.OperationConfirmedYieldQuantityInOperationUnit,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsPartiallyConfirmed,
+			&pm.IsConfirmed,
+			&pm.IsLocked,
+			&pm.IsCancelled,
+			&pm.IsMarkedForDeletion,
 		)
 		if err != nil {
 			fmt.Printf("err = %+v \n", err)
@@ -303,6 +490,74 @@ func ConvertToItemOperation(rows *sql.Rows) (*[]ItemOperation, error) {
 	}
 
 	return &itemOperation, nil
+}
+
+func ConvertToItemOperationComponent(rows *sql.Rows) (*[]ItemOperationComponent, error) {
+	defer rows.Close()
+	itemOperationComponent := make([]ItemOperationComponent, 0)
+	i := 0
+	for rows.Next() {
+		i++
+		pm := ItemOperationComponent{}
+		err := rows.Scan(
+			&pm.ProductionOrder,
+			&pm.ProductionOrderItem,
+			&pm.Operations,
+			&pm.OperationsItem,
+			&pm.OperationID,
+			&pm.BillOfMaterial,
+			&pm.BillOfMaterialItem,
+			&pm.SupplyChainRelationshipID,
+			&pm.SupplyChainRelationshipDeliveryID,
+			&pm.SupplyChainRelationshipDeliveryPlantID,
+			&pm.ProductionPlantBusinessPartner,
+			&pm.ProductionPlant,
+			&pm.ComponentProduct,
+			&pm.ComponentProductBuyer,
+			&pm.ComponentProductSeller,
+			&pm.ComponentProductDeliverToParty,
+			&pm.ComponentProductDeliverToPlant,
+			&pm.ComponentProductDeliverFromParty,
+			&pm.ComponentProductDeliverFromPlant,
+			&pm.ComponentProductDeliverToPartyInOperation,
+			&pm.ComponentProductDeliverToPlantInOperation,
+			&pm.ComponentProductDeliverFromPartyInOperation,
+			&pm.ComponentProductDeliverFromPlantInOperation,
+			&pm.ComponentProductRequirementDateInOperation,
+			&pm.ComponentProductRequirementTimeInOperation,
+			&pm.ComponentProductPlannedQuantityInBaseUnitInOperation,
+			&pm.ComponentProductPlannedQuantityInDeliveryUnitInOperation,
+			&pm.ComponentProductPlannedScrapInPercentInOperation,
+			&pm.ComponentProductBaseUnit,
+			&pm.ComponentProductDeliveryUnit,
+			&pm.ComponentProductIsMarkedForBackflush,
+			&pm.MRPArea,
+			&pm.MRPController,
+			&pm.ProductionVersion,
+			&pm.ProductionVersionItem,
+			&pm.ComponentProductReservation,
+			&pm.ComponentProductReservationItem,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsLocked,
+			&pm.IsCancelled,
+			&pm.IsMarkedForDeletion,
+		)
+		if err != nil {
+			fmt.Printf("err = %+v \n", err)
+			return &itemOperationComponent, err
+		}
+		itemOperationComponent = append(itemOperationComponent, pm)
+	}
+	if i == 0 {
+		fmt.Printf("DBに対象のレコードが存在しません。")
+		return &itemOperationComponent, nil
+	}
+
+	return &itemOperationComponent, nil
 }
 
 func ConvertToHeadersByOwnerProductionPlantBusinessPartner(rows *sql.Rows) (*[]HeadersByOwnerProductionPlantBusinessPartner, error) {
