@@ -110,77 +110,77 @@ type HeaderDoc struct {
 }
 
 type Item struct {
-	ProductionOrder		 							int			`json:"ProductionOrder"`
-	ProductionOrderItem		 						int			`json:"ProductionOrderItem"`
-	PrecedingProductionOrderItem					*int		`json:"PrecedingProductionOrderItem"`
-	FollowingProductionOrderItem					*int		`json:"FollowingProductionOrderItem"`
-	SupplyChainRelationshipID						*int		`json:"SupplyChainRelationshipID"`
-	SupplyChainRelationshipProductionPlantID		*int		`json:"SupplyChainRelationshipProductionPlantID"`
-	SupplyChainRelationshipDeliveryID				*int		`json:"SupplyChainRelationshipDeliveryID"`
-	SupplyChainRelationshipDeliveryPlantID			*int		`json:"SupplyChainRelationshipDeliveryPlantID"`
-	ProductionOrderType								*string		`json:"ProductionOrderType"`
-	Product											*string		`json:"Product"`
-	Buyer											*int		`json:"Buyer"`
-	Seller											*int		`json:"Seller"`
-	ProductionPlantBusinessPartner					*int		`json:"ProductionPlantBusinessPartner"`
-	ProductionPlant									*string		`json:"ProductionPlant"`
-	ProductionPlantStorageLocation					*string		`json:"ProductionPlantStorageLocation"`
-	DeliverToParty									*int		`json:"DeliverToParty"`
-	DeliverToPlant									*string		`json:"DeliverToPlant"`
-	DeliverToPlantStorageLocation					*string		`json:"DeliverToPlantStorageLocation"`
-	DeliverFromParty								*int		`json:"DeliverFromParty"`
-	DeliverFromPlant								*string		`json:"DeliverFromPlant"`
-	DeliverFromPlantStorageLocation					*string		`json:"DeliverFromPlantStorageLocation"`
-	MRPArea											*string		`json:"MRPArea"`
-	MRPController									*string		`json:"MRPController"`
-	ProductionVersion								*int		`json:"ProductionVersion"`
-	ProductionVersionItem							*int		`json:"ProductionVersionItem"`
-	BillOfMaterial									*int		`json:"BillOfMaterial"`
-	Operations										*int		`json:"Operations"`
-	ProductionOrderQuantityInBaseUnit				*float32	`json:"ProductionOrderQuantityInBaseUnit"`
-	ProductionOrderQuantityInProductionUnit			*float32	`json:"ProductionOrderQuantityInProductionUnit"`
-	ProductionOrderQuantityInDeliveryUnit			*float32	`json:"ProductionOrderQuantityInDeliveryUnit"`
-	ProductionOrderPlannedScrapQtyInBaseUnit		*float32	`json:"ProductionOrderPlannedScrapQtyInBaseUnit"`
-	ProductionOrderMinimumLotSizeQuantity			*float32	`json:"ProductionOrderMinimumLotSizeQuantity"`
-	ProductionOrderStandardLotSizeQuantity			*float32	`json:"ProductionOrderStandardLotSizeQuantity"`
-	ProductionOrderMaximumLotSizeQuantity			*float32	`json:"ProductionOrderMaximumLotSizeQuantity"`
-	ProductionOrderLotSizeRoundingQuantity			*float32	`json:"ProductionOrderLotSizeRoundingQuantity"`
-	ProductionOrderLotSizeIsFixed					*bool		`json:"ProductionOrderLotSizeIsFixed"`
-	ProductionOrderPlannedStartDate					*string		`json:"ProductionOrderPlannedStartDate"`
-	ProductionOrderPlannedStartTime					*string		`json:"ProductionOrderPlannedStartTime"`
-	ProductionOrderPlannedEndDate					*string		`json:"ProductionOrderPlannedEndDate"`
-	ProductionOrderPlannedEndTime					*string		`json:"ProductionOrderPlannedEndTime"`
-	ProductionOrderActualReleaseDate				*string		`json:"ProductionOrderActualReleaseDate"`
-	ProductionOrderActualReleaseTime				*string		`json:"ProductionOrderActualReleaseTime"`
-	ProductionOrderActualStartDate					*string		`json:"ProductionOrderActualStartDate"`
-	ProductionOrderActualStartTime					*string		`json:"ProductionOrderActualStartTime"`
-	ProductionOrderActualEndDate					*string		`json:"ProductionOrderActualEndDate"`
-	ProductionOrderActualEndTime					*string		`json:"ProductionOrderActualEndTime"`
-	ConfirmedYieldQuantityInBaseUnit				*float32	`json:"ConfirmedYieldQuantityInBaseUnit"`
-	ConfirmedYieldQuantityInProductionUnit			*float32	`json:"ConfirmedYieldQuantityInProductionUnit"`
-	ScrappedQuantityInBaseUnit						*float32	`json:"ScrappedQuantityInBaseUnit"`
-	PlannedOrder									*int		`json:"PlannedOrder"`
-	PlannedOrderItem								*int		`json:"PlannedOrderItem"`
-	OrderID											*int		`json:"OrderID"`
-	OrderItem										*int		`json:"OrderItem"`
-	ProductIsBatchManagedInProductionPlant			*bool		`json:"ProductIsBatchManagedInProductionPlant"`
-	BatchMgmtPolicyInProductionOrder				*string		`json:"BatchMgmtPolicyInProductionOrder"`
-	ProductionOrderTargetedBatch					*string		`json:"ProductionOrderTargetedBatch"`
-	ProductionOrderTargetedBatchValidityStartDate	*string		`json:"ProductionOrderTargetedBatchValidityStartDate"`
-	ProductionOrderTargetedBatchValidityStartTime	*string		`json:"ProductionOrderTargetedBatchValidityStartTime"`
-	ProductionOrderTargetedBatchValidityEndDate		*string		`json:"ProductionOrderTargetedBatchValidityEndDate"`
-	ProductionOrderTargetedBatchValidityEndTime		*string		`json:"ProductionOrderTargetedBatchValidityEndTime"`
-	ProductionOrderItemText							*string		`json:"ProductionOrderItemText"`
-	CreationDate									*string		`json:"CreationDate"`
-	CreationTime									*string		`json:"CreationTime"`
-	LastChangeDate									*string		`json:"LastChangeDate"`
-	LastChangeTime									*string		`json:"LastChangeTime"`
-	IsReleased										*bool		`json:"IsReleased"`
-	IsPartiallyConfirmed							*bool		`json:"IsPartiallyConfirmed"`
-	IsConfirmed										*bool		`json:"IsConfirmed"`
-	IsLocked										*bool		`json:"IsLocked"`
-	IsCancelled										*bool		`json:"IsCancelled"`
-	IsMarkedForDeletion								*bool		`json:"IsMarkedForDeletion"`
+	ProductionOrder		 							int		 `json:"ProductionOrder"`
+	ProductionOrderItem		 						int		 `json:"ProductionOrderItem"`
+	PrecedingProductionOrderItem					int		 `json:"PrecedingProductionOrderItem"`
+	FollowingProductionOrderItem					int		 `json:"FollowingProductionOrderItem"`
+	SupplyChainRelationshipID						int		 `json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipProductionPlantID		int		 `json:"SupplyChainRelationshipProductionPlantID"`
+	SupplyChainRelationshipDeliveryID				int		 `json:"SupplyChainRelationshipDeliveryID"`
+	SupplyChainRelationshipDeliveryPlantID			int		 `json:"SupplyChainRelationshipDeliveryPlantID"`
+	ProductionOrderType								string	 `json:"ProductionOrderType"`
+	Product											string	 `json:"Product"`
+	Buyer											int		 `json:"Buyer"`
+	Seller											int		 `json:"Seller"`
+	ProductionPlantBusinessPartner					int		 `json:"ProductionPlantBusinessPartner"`
+	ProductionPlant									string	 `json:"ProductionPlant"`
+	ProductionPlantStorageLocation					string	 `json:"ProductionPlantStorageLocation"`
+	DeliverToParty									int		 `json:"DeliverToParty"`
+	DeliverToPlant									string	 `json:"DeliverToPlant"`
+	DeliverToPlantStorageLocation					string	 `json:"DeliverToPlantStorageLocation"`
+	DeliverFromParty								int		 `json:"DeliverFromParty"`
+	DeliverFromPlant								string	 `json:"DeliverFromPlant"`
+	DeliverFromPlantStorageLocation					string	 `json:"DeliverFromPlantStorageLocation"`
+	MRPArea											*string	 `json:"MRPArea"`
+	MRPController									*string	 `json:"MRPController"`
+	ProductionVersion								*int	 `json:"ProductionVersion"`
+	ProductionVersionItem							*int	 `json:"ProductionVersionItem"`
+	BillOfMaterial									int		 `json:"BillOfMaterial"`
+	Operations										int		 `json:"Operations"`
+	ProductionOrderQuantityInBaseUnit				float32	 `json:"ProductionOrderQuantityInBaseUnit"`
+	ProductionOrderQuantityInProductionUnit			float32	 `json:"ProductionOrderQuantityInProductionUnit"`
+	ProductionOrderQuantityInDeliveryUnit			float32	 `json:"ProductionOrderQuantityInDeliveryUnit"`
+	ProductionOrderPlannedScrapQtyInBaseUnit		*float32 `json:"ProductionOrderPlannedScrapQtyInBaseUnit"`
+	ProductionOrderMinimumLotSizeQuantity			float32	 `json:"ProductionOrderMinimumLotSizeQuantity"`
+	ProductionOrderStandardLotSizeQuantity			float32	 `json:"ProductionOrderStandardLotSizeQuantity"`
+	ProductionOrderMaximumLotSizeQuantity			float32	 `json:"ProductionOrderMaximumLotSizeQuantity"`
+	ProductionOrderLotSizeRoundingQuantity			*float32 `json:"ProductionOrderLotSizeRoundingQuantity"`
+	ProductionOrderLotSizeIsFixed					*bool	 `json:"ProductionOrderLotSizeIsFixed"`
+	ProductionOrderPlannedStartDate					string	 `json:"ProductionOrderPlannedStartDate"`
+	ProductionOrderPlannedStartTime					string	 `json:"ProductionOrderPlannedStartTime"`
+	ProductionOrderPlannedEndDate					string	 `json:"ProductionOrderPlannedEndDate"`
+	ProductionOrderPlannedEndTime					string	 `json:"ProductionOrderPlannedEndTime"`
+	ProductionOrderActualReleaseDate				*string	 `json:"ProductionOrderActualReleaseDate"`
+	ProductionOrderActualReleaseTime				*string	 `json:"ProductionOrderActualReleaseTime"`
+	ProductionOrderActualStartDate					*string	 `json:"ProductionOrderActualStartDate"`
+	ProductionOrderActualStartTime					*string	 `json:"ProductionOrderActualStartTime"`
+	ProductionOrderActualEndDate					*string	 `json:"ProductionOrderActualEndDate"`
+	ProductionOrderActualEndTime					*string	 `json:"ProductionOrderActualEndTime"`
+	ConfirmedYieldQuantityInBaseUnit				*float32 `json:"ConfirmedYieldQuantityInBaseUnit"`
+	ConfirmedYieldQuantityInProductionUnit			*float32 `json:"ConfirmedYieldQuantityInProductionUnit"`
+	ScrappedQuantityInBaseUnit						*float32 `json:"ScrappedQuantityInBaseUnit"`
+	PlannedOrder									*int	 `json:"PlannedOrder"`
+	PlannedOrderItem								*int	 `json:"PlannedOrderItem"`
+	OrderID											*int	 `json:"OrderID"`
+	OrderItem										*int	 `json:"OrderItem"`
+	ProductIsBatchManagedInProductionPlant			*bool	 `json:"ProductIsBatchManagedInProductionPlant"`
+	BatchMgmtPolicyInProductionOrder				*string	 `json:"BatchMgmtPolicyInProductionOrder"`
+	ProductionOrderTargetedBatch					*string  `json:"ProductionOrderTargetedBatch"`
+	ProductionOrderTargetedBatchValidityStartDate	*string	 `json:"ProductionOrderTargetedBatchValidityStartDate"`
+	ProductionOrderTargetedBatchValidityStartTime	*string	 `json:"ProductionOrderTargetedBatchValidityStartTime"`
+	ProductionOrderTargetedBatchValidityEndDate		*string	 `json:"ProductionOrderTargetedBatchValidityEndDate"`
+	ProductionOrderTargetedBatchValidityEndTime		*string	 `json:"ProductionOrderTargetedBatchValidityEndTime"`
+	ProductionOrderItemText							*string	 `json:"ProductionOrderItemText"`
+	CreationDate									string	 `json:"CreationDate"`
+	CreationTime									string	 `json:"CreationTime"`
+	LastChangeDate									string	 `json:"LastChangeDate"`
+	LastChangeTime									string	 `json:"LastChangeTime"`
+	IsReleased										*bool	 `json:"IsReleased"`
+	IsPartiallyConfirmed							*bool	 `json:"IsPartiallyConfirmed"`
+	IsConfirmed										*bool	 `json:"IsConfirmed"`
+	IsLocked										*bool	 `json:"IsLocked"`
+	IsCancelled										*bool	 `json:"IsCancelled"`
+	IsMarkedForDeletion								*bool	 `json:"IsMarkedForDeletion"`
 }
 
 type ItemComponent struct {
@@ -188,37 +188,37 @@ type ItemComponent struct {
 	ProductionOrderItem								int			`json:"ProductionOrderItem"`
 	BillOfMaterial									int			`json:"BillOfMaterial"`
 	BillOfMaterialItem								int			`json:"BillOfMaterialItem"`
-	SupplyChainRelationshipID						*int		`json:"SupplyChainRelationshipID"`
-	SupplyChainRelationshipDeliveryID				*int		`json:"SupplyChainRelationshipDeliveryID"`
-	SupplyChainRelationshipDeliveryPlantID			*int		`json:"SupplyChainRelationshipDeliveryPlantID"`
-	SupplyChainRelationshipStockConfPlantID			*int		`json:"SupplyChainRelationshipStockConfPlantID"`
-	ProductionPlantBusinessPartner					*int		`json:"ProductionPlantBusinessPartner"`
-	ProductionPlant									*string		`json:"ProductionPlant"`
-	ComponentProduct								*string		`json:"ComponentProduct"`
-	ComponentProductBuyer							*int		`json:"ComponentProductBuyer"`
-	ComponentProductSeller							*int		`json:"ComponentProductSeller"`
-	ComponentProductDeliverToParty					*int		`json:"ComponentProductDeliverToParty"`
-	ComponentProductDeliverToPlant					*string		`json:"ComponentProductDeliverToPlant"`
-	ComponentProductDeliverFromParty				*int		`json:"ComponentProductDeliverFromParty"`
-	ComponentProductDeliverFromPlant				*string		`json:"ComponentProductDeliverFromPlant"`
-	ComponentProductBaseUnit						*string		`json:"ComponentProductBaseUnit"`
-	ComponentProductDeliveryUnit					*string		`json:"ComponentProductDeliveryUnit"`
-	ComponentProductRequirementDate					*string		`json:"ComponentProductRequirementDate"`
-	ComponentProductRequirementTime					*string		`json:"ComponentProductRequirementTime"`
-	ComponentProductRequiredQuantityInBaseUnit		*float32	`json:"ComponentProductRequiredQuantityInBaseUnit"`
-	ComponentProductRequiredQuantityInDeliveryUnit	*float32	`json:"ComponentProductRequiredQuantityInDeliveryUnit"`
-	ComponentProductPlannedScrapInPercent			*float32	`json:"ComponentProductPlannedScrapInPercent"`
-	ComponentProductIsMarkedForBackflush			*bool		`json:"ComponentProductIsMarkedForBackflush"`
-	BillOfMaterialItemText							*string		`json:"BillOfMaterialItemText"`
-	StockConfirmationBusinessPartner				*int		`json:"StockConfirmationBusinessPartner"`
-	StockConfirmationPlant							*string		`json:"StockConfirmationPlant"`
-	StockConfirmationPlantStorageLocation			*string		`json:"StockConfirmationPlantStorageLocation"`
+	SupplyChainRelationshipID						int			`json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipDeliveryID				int			`json:"SupplyChainRelationshipDeliveryID"`
+	SupplyChainRelationshipDeliveryPlantID			int			`json:"SupplyChainRelationshipDeliveryPlantID"`
+	SupplyChainRelationshipStockConfPlantID			int			`json:"SupplyChainRelationshipStockConfPlantID"`
+	ProductionPlantBusinessPartner					int			`json:"ProductionPlantBusinessPartner"`
+	ProductionPlant									string		`json:"ProductionPlant"`
 	MRPArea											*string		`json:"MRPArea"`
 	MRPController									*string		`json:"MRPController"`
 	ProductionVersion								*int		`json:"ProductionVersion"`
 	ProductionVersionItem							*int		`json:"ProductionVersionItem"`
+	ComponentProduct								string		`json:"ComponentProduct"`
+	ComponentProductBuyer							int			`json:"ComponentProductBuyer"`
+	ComponentProductSeller							int			`json:"ComponentProductSeller"`
+	ComponentProductDeliverToParty					int			`json:"ComponentProductDeliverToParty"`
+	ComponentProductDeliverToPlant					string		`json:"ComponentProductDeliverToPlant"`
+	ComponentProductDeliverFromParty				int			`json:"ComponentProductDeliverFromParty"`
+	ComponentProductDeliverFromPlant				string		`json:"ComponentProductDeliverFromPlant"`
+	ComponentProductBaseUnit						string		`json:"ComponentProductBaseUnit"`
+	ComponentProductDeliveryUnit					string		`json:"ComponentProductDeliveryUnit"`
+	ComponentProductRequirementDate					string		`json:"ComponentProductRequirementDate"`
+	ComponentProductRequirementTime					string		`json:"ComponentProductRequirementTime"`
+	ComponentProductRequiredQuantityInBaseUnit		float32		`json:"ComponentProductRequiredQuantityInBaseUnit"`
+	ComponentProductRequiredQuantityInDeliveryUnit	float32		`json:"ComponentProductRequiredQuantityInDeliveryUnit"`
+	ComponentProductPlannedScrapInPercent			*float32	`json:"ComponentProductPlannedScrapInPercent"`
+	ComponentProductIsMarkedForBackflush			*bool		`json:"ComponentProductIsMarkedForBackflush"`
+	StockConfirmationBusinessPartner				int			`json:"StockConfirmationBusinessPartner"`
+	StockConfirmationPlant							string		`json:"StockConfirmationPlant"`
+	StockConfirmationPlantStorageLocation			string		`json:"StockConfirmationPlantStorageLocation"`
 	PlannedOrder									*int		`json:"PlannedOrder"`
 	PlannedOrderItem								*int		`json:"PlannedOrderItem"`
+	BillOfMaterialItemText                          *string  	`json:"BillOfMaterialItemText"`
 	ComponentProductBatch							*string		`json:"ComponentProductBatch"`
 	ComponentProductBatchValidityStartDate			*string		`json:"ComponentProductBatchValidityStartDate"`
 	ComponentProductBatchValidityStartTime			*string		`json:"ComponentProductBatchValidityStartTime"`
@@ -229,10 +229,10 @@ type ItemComponent struct {
 	ComponentProductStandardPrice					*float32	`json:"ComponentProductStandardPrice"`
 	ComponentProductMovingAveragePrice				*float32	`json:"ComponentProductMovingAveragePrice"`
 	ComponentProductWithdrawnQuantity				*float32	`json:"ComponentProductWithdrawnQuantity"`
-	CreationDate									*string		`json:"CreationDate"`
-	CreationTime									*string		`json:"CreationTime"`
-	LastChangeDate									*string		`json:"LastChangeDate"`
-	LastChangeTime									*string		`json:"LastChangeTime"`
+	CreationDate									string		`json:"CreationDate"`
+	CreationTime									string		`json:"CreationTime"`
+	LastChangeDate									string		`json:"LastChangeDate"`
+	LastChangeTime									string		`json:"LastChangeTime"`
 	ComponentProductAvailabilityIsNotChecked		*bool		`json:"ComponentProductAvailabilityIsNotChecked"`
 	IsReleased										*bool		`json:"IsReleased"`
 	IsLocked										*bool		`json:"IsLocked"`
@@ -246,22 +246,22 @@ type ItemComponentDeliveryScheduleLine struct {
 	BillOfMaterial								int			`json:"BillOfMaterial"`
 	BillOfMaterialItem							int			`json:"BillOfMaterialItem"`
 	ScheduleLine								int			`json:"ScheduleLine"`
-	SupplyChainRelationshipID					*int		`json:"SupplyChainRelationshipID"`
-	SupplyChainRelationshipStockConfPlantID		*int		`json:"SupplyChainRelationshipStockConfPlantID"`
-	ComponentProduct							*string		`json:"ComponentProduct"`
-	StockConfirmationBusinessPartner			*int		`json:"StockConfirmationBusinessPartner"`
-	StockConfirmationPlant						*int		`json:"StockConfirmationPlant"`
+	SupplyChainRelationshipID					int			`json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipStockConfPlantID		int			`json:"SupplyChainRelationshipStockConfPlantID"`
+	ComponentProduct							string		`json:"ComponentProduct"`
+	StockConfirmationBusinessPartner			int			`json:"StockConfirmationBusinessPartner"`
+	StockConfirmationPlant						string		`json:"StockConfirmationPlant"`
 	StockConfirmationPlantTimeZone				*string		`json:"StockConfirmationPlantTimeZone"`
 	ComponentProductBatch						*string		`json:"ComponentProductBatch"`
 	ComponentProductBatchValidityStartDate		*string		`json:"ComponentProductBatchValidityStartDate"`
 	ComponentProductBatchValidityStartTime		*string		`json:"ComponentProductBatchValidityStartTime"`
 	ComponentProductBatchValidityEndDate		*string		`json:"ComponentProductBatchValidityEndDate"`
 	ComponentProductBatchValidityEndTime		*string		`json:"ComponentProductBatchValidityEndTime"`
-	RequestedDeliveryDate						*string		`json:"RequestedDeliveryDate"`
-	RequestedDeliveryTime						*string		`json:"RequestedDeliveryTime"`
+	RequestedDeliveryDate						string		`json:"RequestedDeliveryDate"`
+	RequestedDeliveryTime						string		`json:"RequestedDeliveryTime"`
 	ConfirmedDeliveryDate						*string		`json:"ConfirmedDeliveryDate"`
 	ConfirmedDeliveryTime						*string		`json:"ConfirmedDeliveryTime"`
-	OriginalRequiredQuantityInBaseUnit			*float32	`json:"OriginalRequiredQuantityInBaseUnit"`
+	OriginalRequiredQuantityInBaseUnit			float32		`json:"OriginalRequiredQuantityInBaseUnit"`
 	ConfirmedQuantityByPDTAvailCheckInBaseUnit	*float32	`json:"ConfirmedQuantityByPDTAvailCheckInBaseUnit"`
 	OpenConfirmedQuantityInBaseUnit				*float32	`json:"OpenConfirmedQuantityInBaseUnit"`
 	DeliveredQuantityInBaseUnit					*float32	`json:"DeliveredQuantityInBaseUnit"`
@@ -269,10 +269,10 @@ type ItemComponentDeliveryScheduleLine struct {
 	StockIsFullyConfirmed						*bool		`json:"StockIsFullyConfirmed"`
 	PlusMinusFlag								*string		`json:"PlusMinusFlag"`
 	ItemScheduleLineDeliveryBlockStatus			*bool		`json:"ItemScheduleLineDeliveryBlockStatus"`
-	CreationDate                                *string  	`json:"CreationDate"`
-	CreationTime                                *string  	`json:"CreationTime"`
-	LastChangeDate                              *string  	`json:"LastChangeDate"`
-	LastChangeTime                              *string  	`json:"LastChangeTime"`
+	CreationDate                                string  	`json:"CreationDate"`
+	CreationTime                                string  	`json:"CreationTime"`
+	LastChangeDate                              string  	`json:"LastChangeDate"`
+	LastChangeTime                              string  	`json:"LastChangeTime"`
 	IsReleased									*bool		`json:"IsReleased"`
 	IsLocked									*bool		`json:"IsLocked"`
 	IsCancelled									*bool		`json:"IsCancelled"`
@@ -284,8 +284,8 @@ type ItemComponentCosting struct {
 	ProductionOrderItem int      `json:"ProductionOrderItem"`
 	BillOfMaterial      int      `json:"BillOfMaterial"`
 	BillOfMaterialItem  int      `json:"BillOfMaterialItem"`
-	Currency            *string  `json:"Currency"`
-	CostingAmount       *float32 `json:"CostingAmount"`
+	Currency            string 	 `json:"Currency"`
+	CostingAmount       float32	 `json:"CostingAmount"`
 	CreationDate        string   `json:"CreationDate"`
 	CreationTime        string   `json:"CreationTime"`
 	LastChangeDate      string   `json:"LastChangeDate"`
@@ -314,42 +314,42 @@ type ItemOperation struct {
 	Operations											int			`json:"Operations"`
 	OperationsItem										int			`json:"OperationsItem"`
 	OperationID											int			`json:"OperationID"`
-	SupplyChainRelationshipID							*int		`json:"SupplyChainRelationshipID"`
-	SupplyChainRelationshipDeliveryID					*int		`json:"SupplyChainRelationshipDeliveryID"`
-	SupplyChainRelationshipDeliveryPlantID				*int		`json:"SupplyChainRelationshipDeliveryPlantID"`
-	SupplyChainRelationshipProductionPlantID			*int		`json:"SupplyChainRelationshipProductionPlantID"`
-	Product												*string		`json:"Product"`
-	Buyer												*int		`json:"Buyer"`
-	Seller												*int		`json:"Seller"`
-	DeliverToParty										*int		`json:"DeliverToParty"`
-	DeliverToPlant										*string		`json:"DeliverToPlant"`
-	DeliverFromParty									*int		`json:"DeliverFromParty"`
-	DeliverFromPlant									*string		`json:"DeliverFromPlant"`
-	ProductionPlantBusinessPartner						*int		`json:"ProductionPlantBusinessPartner"`
-	ProductionPlant										*string		`json:"ProductionPlant"`
+	SupplyChainRelationshipID							int			`json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipDeliveryID					int			`json:"SupplyChainRelationshipDeliveryID"`
+	SupplyChainRelationshipDeliveryPlantID				int			`json:"SupplyChainRelationshipDeliveryPlantID"`
+	SupplyChainRelationshipProductionPlantID			int			`json:"SupplyChainRelationshipProductionPlantID"`
+	Product												string		`json:"Product"`
+	Buyer												int			`json:"Buyer"`
+	Seller												int			`json:"Seller"`
+	DeliverToParty										int			`json:"DeliverToParty"`
+	DeliverToPlant										string		`json:"DeliverToPlant"`
+	DeliverFromParty									int			`json:"DeliverFromParty"`
+	DeliverFromPlant									string		`json:"DeliverFromPlant"`
+	ProductionPlantBusinessPartner						int			`json:"ProductionPlantBusinessPartner"`
+	ProductionPlant										string		`json:"ProductionPlant"`
 	MRPArea												*string		`json:"MRPArea"`
 	MRPController										*string		`json:"MRPController"`
 	ProductionVersion									*int		`json:"ProductionVersion"`
 	ProductionVersionItem								*int		`json:"ProductionVersionItem"`
-	Sequence											*int		`json:"Sequence"`
+	Sequence											int			`json:"Sequence"`
 	SequenceText										*string		`json:"SequenceText"`
-	OperationText										*string		`json:"OperationText"`
-	ProductBaseUnit										*string		`json:"ProductBaseUnit"`
-	ProductProductionUnit								*string		`json:"ProductProductionUnit"`
-	ProductOperationUnit								*string		`json:"ProductOperationUnit"`
-	ProductDeliveryUnit									*string		`json:"ProductDeliveryUnit"`
-	StandardLotSizeQuantity								*float32	`json:"StandardLotSizeQuantity"`
-	MinimumLotSizeQuantity								*float32	`json:"MinimumLotSizeQuantity"`
-	MaximumLotSizeQuantity								*float32	`json:"MaximumLotSizeQuantity"`
-	OperationPlannedQuantityInBaseUnit					*float32	`json:"OperationPlannedQuantityInBaseUnit"`
-	OperationPlannedQuantityInProductionUnit			*float32	`json:"OperationPlannedQuantityInProductionUnit"`
-	OperationPlannedQuantityInOperationUnit				*float32	`json:"OperationPlannedQuantityInOperationUnit"`
-	OperationPlannedQuantityInDeliveryUnit				*float32	`json:"OperationPlannedQuantityInDeliveryUnit"`
+	OperationText										string		`json:"OperationText"`
+	ProductBaseUnit										string		`json:"ProductBaseUnit"`
+	ProductProductionUnit								string		`json:"ProductProductionUnit"`
+	ProductOperationUnit								string		`json:"ProductOperationUnit"`
+	ProductDeliveryUnit									string		`json:"ProductDeliveryUnit"`
+	StandardLotSizeQuantity								float32		`json:"StandardLotSizeQuantity"`
+	MinimumLotSizeQuantity								float32		`json:"MinimumLotSizeQuantity"`
+	MaximumLotSizeQuantity								float32		`json:"MaximumLotSizeQuantity"`
+	OperationPlannedQuantityInBaseUnit					float32		`json:"OperationPlannedQuantityInBaseUnit"`
+	OperationPlannedQuantityInProductionUnit			float32		`json:"OperationPlannedQuantityInProductionUnit"`
+	OperationPlannedQuantityInOperationUnit				float32		`json:"OperationPlannedQuantityInOperationUnit"`
+	OperationPlannedQuantityInDeliveryUnit				float32		`json:"OperationPlannedQuantityInDeliveryUnit"`
 	OperationPlannedScrapInPercent						*float32	`json:"OperationPlannedScrapInPercent"`
 	ResponsiblePlannerGroup								*string		`json:"ResponsiblePlannerGroup"`
 	PlainLongText										*string		`json:"PlainLongText"`
-	WorkCenter											*int		`json:"WorkCenter"`
-	CapacityCategoryCode								*string		`json:"CapacityCategoryCode"`
+	WorkCenter											int			`json:"WorkCenter"`
+	CapacityCategory									*string		`json:"CapacityCategory"`
 	OperationCostingRelevancyType						*string		`json:"OperationCostingRelevancyType"`
 	OperationSetupType									*string		`json:"OperationSetupType"`
 	OperationSetupGroupCategory							*string		`json:"OperationSetupGroupCategory"`
@@ -380,10 +380,10 @@ type ItemOperation struct {
 	OperationConfirmedYieldQuantityInBaseUnit			*float32	`json:"OperationConfirmedYieldQuantityInBaseUnit"`
 	OperationConfirmedYieldQuantityInProductionUnit		*float32	`json:"OperationConfirmedYieldQuantityInProductionUnit"`
 	OperationConfirmedYieldQuantityInOperationUnit		*float32	`json:"OperationConfirmedYieldQuantityInOperationUnit"`
-	CreationDate										*string		`json:"CreationDate"`
-	CreationTime										*string		`json:"CreationTime"`
-	LastChangeDate										*string		`json:"LastChangeDate"`
-	LastChangeTime										*string		`json:"LastChangeTime"`
+	CreationDate										string		`json:"CreationDate"`
+	CreationTime										string		`json:"CreationTime"`
+	LastChangeDate										string		`json:"LastChangeDate"`
+	LastChangeTime										string		`json:"LastChangeTime"`
 	IsReleased											*bool		`json:"IsReleased"`
 	IsPartiallyConfirmed								*bool		`json:"IsPartiallyConfirmed"`
 	IsConfirmed											*bool		`json:"IsConfirmed"`
@@ -400,29 +400,29 @@ type ItemOperationComponent struct {
     OperationID	                                                int	        `json:"OperationID"`
     BillOfMaterial                                            	int	        `json:"BillOfMaterial"`
     BillOfMaterialItem	                                        int	        `json:"BillOfMaterialItem"`
-    SupplyChainRelationshipID	                                *int	    `json:"SupplyChainRelationshipID"`
-    SupplyChainRelationshipDeliveryID	                        *int	    `json:"SupplyChainRelationshipDeliveryID"`
-    SupplyChainRelationshipDeliveryPlantID                    	*int	    `json:"SupplyChainRelationshipDeliveryPlantID"`
-    ProductionPlantBusinessPartner                            	*int	    `json:"ProductionPlantBusinessPartner"`
-    ProductionPlant	                                            *string	    `json:"ProductionPlant"`
-    ComponentProduct                                            *string	    `json:"ComponentProduct"`
-    ComponentProductBuyer                                    	*int	    `json:"ComponentProductBuyer"`
-    ComponentProductSeller	                                    *int	    `json:"ComponentProductSeller"`
-    ComponentProductDeliverToParty                            	*int	    `json:"ComponentProductDeliverToParty"`
-    ComponentProductDeliverToPlant	                            *string	    `json:"ComponentProductDeliverToPlant"`
-    ComponentProductDeliverFromParty	                        *int	    `json:"ComponentProductDeliverFromParty"`
-    ComponentProductDeliverFromPlant	                        *string	    `json:"ComponentProductDeliverFromPlant"`
-    ComponentProductDeliverToPartyInOperation	                *int	    `json:"ComponentProductDeliverToPartyInOperation"`
-    ComponentProductDeliverToPlantInOperation	                *string	    `json:"ComponentProductDeliverToPlantInOperation"`
-    ComponentProductDeliverFromPartyInOperation	                *int	    `json:"ComponentProductDeliverFromPartyInOperation"`
-    ComponentProductDeliverFromPlantInOperation	                *string	    `json:"ComponentProductDeliverFromPlantInOperation"`
-    ComponentProductRequirementDateInOperation	                *string	    `json:"ComponentProductRequirementDateInOperation"`
-    ComponentProductRequirementTimeInOperation	                *string	    `json:"ComponentProductRequirementTimeInOperation"`
-    ComponentProductPlannedQuantityInBaseUnitInOperation	    *float32	`json:"ComponentProductPlannedQuantityInBaseUnitInOperation"`
-    ComponentProductPlannedQuantityInDeliveryUnitInOperation	*float32	`json:"ComponentProductPlannedQuantityInDeliveryUnitInOperation"`
+    SupplyChainRelationshipID	                                int	        `json:"SupplyChainRelationshipID"`
+    SupplyChainRelationshipDeliveryID	                        int	        `json:"SupplyChainRelationshipDeliveryID"`
+    SupplyChainRelationshipDeliveryPlantID                    	int	        `json:"SupplyChainRelationshipDeliveryPlantID"`
+    ProductionPlantBusinessPartner                            	int	        `json:"ProductionPlantBusinessPartner"`
+    ProductionPlant	                                            string	    `json:"ProductionPlant"`
+    ComponentProduct                                            string	    `json:"ComponentProduct"`
+    ComponentProductBuyer                                    	int	        `json:"ComponentProductBuyer"`
+    ComponentProductSeller	                                    int	        `json:"ComponentProductSeller"`
+    ComponentProductDeliverToParty                            	int	        `json:"ComponentProductDeliverToParty"`
+    ComponentProductDeliverToPlant	                            string	    `json:"ComponentProductDeliverToPlant"`
+    ComponentProductDeliverFromParty	                        int	        `json:"ComponentProductDeliverFromParty"`
+    ComponentProductDeliverFromPlant	                        string	    `json:"ComponentProductDeliverFromPlant"`
+    ComponentProductDeliverToPartyInOperation	                int	        `json:"ComponentProductDeliverToPartyInOperation"`
+    ComponentProductDeliverToPlantInOperation	                string	    `json:"ComponentProductDeliverToPlantInOperation"`
+    ComponentProductDeliverFromPartyInOperation	                int	        `json:"ComponentProductDeliverFromPartyInOperation"`
+    ComponentProductDeliverFromPlantInOperation	                string	    `json:"ComponentProductDeliverFromPlantInOperation"`
+    ComponentProductRequirementDateInOperation	                string	    `json:"ComponentProductRequirementDateInOperation"`
+    ComponentProductRequirementTimeInOperation	                string	    `json:"ComponentProductRequirementTimeInOperation"`
+    ComponentProductPlannedQuantityInBaseUnitInOperation	    float32	    `json:"ComponentProductPlannedQuantityInBaseUnitInOperation"`
+    ComponentProductPlannedQuantityInDeliveryUnitInOperation	float32	    `json:"ComponentProductPlannedQuantityInDeliveryUnitInOperation"`
     ComponentProductPlannedScrapInPercentInOperation	        *float32	`json:"ComponentProductPlannedScrapInPercentInOperation"`
-    ComponentProductBaseUnit	                                *string	    `json:"ComponentProductBaseUnit"`
-    ComponentProductDeliveryUnit	                            *string	    `json:"ComponentProductDeliveryUnit"`
+    ComponentProductBaseUnit	                                string	    `json:"ComponentProductBaseUnit"`
+    ComponentProductDeliveryUnit	                            string	    `json:"ComponentProductDeliveryUnit"`
     ComponentProductIsMarkedForBackflush	                    *bool	    `json:"ComponentProductIsMarkedForBackflush"`
     MRPArea	                                                    *string	    `json:"MRPArea"`
     MRPController	                                            *string	    `json:"MRPController"`
@@ -430,10 +430,10 @@ type ItemOperationComponent struct {
     ProductionVersionItem	                                    *int	    `json:"ProductionVersionItem"`
     ComponentProductReservation	                                *int	    `json:"ComponentProductReservation"`
     ComponentProductReservationItem	                            *int	    `json:"ComponentProductReservationItem"`
-    CreationDate	                                            *string	    `json:"CreationDate"`
-    CreationTime	                                            *string	    `json:"CreationTime"`
-    LastChangeDate	                                            *string	    `json:"LastChangeDate"`
-    LastChangeTime	                                            *string	    `json:"LastChangeTime"`
+    CreationDate	                                            string	    `json:"CreationDate"`
+    CreationTime	                                            string	    `json:"CreationTime"`
+    LastChangeDate	                                            string	    `json:"LastChangeDate"`
+    LastChangeTime	                                            string	    `json:"LastChangeTime"`
     IsReleased	                                                *bool	    `json:"IsReleased"`
     IsLocked	                                                *bool	    `json:"IsLocked"`
     IsCancelled	                                                *bool	    `json:"IsCancelled"`
@@ -446,20 +446,14 @@ type ItemOperationCosting struct {
     Operations    	    int	        `json:"Operations"`
     OperationsItem    	int	        `json:"OperationsItem"`
     OperationsID    	int	        `json:"OperationsID"`
-    Currency	        *string	    `json:"Currency"`
-    CostingAmount	    *float32	`json:"CostingAmount"`
-    CreationDate	    *string	    `json:"CreationDate"`
-    CreationTime	    *string	    `json:"CreationTime"`
-    LastChangeDate	    *string	    `json:"LastChangeDate"`
-    LastChangeTime	    *string	    `json:"LastChangeTime"`
+    Currency	        string	    `json:"Currency"`
+    CostingAmount	    float32	    `json:"CostingAmount"`
+    CreationDate	    string	    `json:"CreationDate"`
+    CreationTime	    string	    `json:"CreationTime"`
+    LastChangeDate	    string	    `json:"LastChangeDate"`
+    LastChangeTime	    string	    `json:"LastChangeTime"`
     IsReleased	        *bool	    `json:"IsReleased"`
     IsLocked	        *bool	    `json:"IsLocked"`
     IsCancelled	        *bool   	`json:"IsCancelled"`
     IsMarkedForDeletion	*bool	    `json:"IsMarkedForDeletion"`
-}
-
-type HeadersByOwnerProductionPlantBusinessPartner struct {
-	ProductionOrder                         int     `json:"ProductionOrder"`
-	MRPArea                                 *string `json:"MRPArea"`
-	OwnerProductionPlantBusinessPartnerName *string `json:"OwnerProductionPlantBusinessPartnerName"`
 }

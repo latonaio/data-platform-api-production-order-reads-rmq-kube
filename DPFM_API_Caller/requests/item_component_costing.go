@@ -5,8 +5,8 @@ type ItemComponentCosting struct {
 	ProductionOrderItem int      `json:"ProductionOrderItem"`
 	BillOfMaterial      int      `json:"BillOfMaterial"`
 	BillOfMaterialItem  int      `json:"BillOfMaterialItem"`
-	Currency            *string  `json:"Currency"`
-	CostingAmount       *float32 `json:"CostingAmount"`
+	Currency            string 	 `json:"Currency"`
+	CostingAmount       float32	 `json:"CostingAmount"`
 	CreationDate        string   `json:"CreationDate"`
 	CreationTime        string   `json:"CreationTime"`
 	LastChangeDate      string   `json:"LastChangeDate"`
