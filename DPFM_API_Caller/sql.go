@@ -29,7 +29,6 @@ func (c *DPFMAPICaller) readSqlProcess(
 	var itemOperation *[]dpfm_api_output_formatter.ItemOperation
 	var itemOperationComponent *[]dpfm_api_output_formatter.ItemOperationComponent
 	var itemOperationCosting *[]dpfm_api_output_formatter.ItemOperationCosting
-	var headersByOwnerProductionPlantBusinessPartner *[]dpfm_api_output_formatter.HeadersByOwnerProductionPlantBusinessPartner
 
 	for _, fn := range accepter {
 		switch fn {
@@ -83,7 +82,7 @@ func (c *DPFMAPICaller) readSqlProcess(
 			}()
 		case "HeadersByOwnerProductionPlantBusinessPartner":
 			func() {
-				headersByOwnerProductionPlantBusinessPartner = c.HeadersByOwnerProductionPlantBusinessPartner(mtx, input, output, errs, log)
+				header = c.HeadersByOwnerProductionPlantBusinessPartner(mtx, input, output, errs, log)
 			}()
 		default:
 		}
@@ -101,7 +100,6 @@ func (c *DPFMAPICaller) readSqlProcess(
 		ItemOperation:                     itemOperation,
 		ItemOperationComponent:            itemOperationComponent,
 		ItemOperationCosting:              itemOperationCosting,
-		HeadersByOwnerProductionPlantBusinessPartner: headersByOwnerProductionPlantBusinessPartner,
 	}
 	return data
 }
@@ -113,7 +111,17 @@ func (c *DPFMAPICaller) Header(
 	errs *[]error,
 	log *logger.Logger,
 ) *[]dpfm_api_output_formatter.Header {
-	where := fmt.Sprintf("WHERE ProductionOrder = %d ", input.Header.ProductionOrder)
+	where := "WHERE 1 = 1"
+
+	where = fmt.Sprintf("%s\nAND ProductionOrder = %d ", where, input.Header.ProductionOrder)
+
+	if input.Header.IsReleased != nil {
+		where = fmt.Sprintf("%s\nAND IsReleased = %v", where, *input.Header.IsReleased)
+	}
+	if input.Header.IsMarkedForDeletion != nil {
+		where = fmt.Sprintf("%s\nAND IsMarkedForDeletion = %v", where, *input.Header.IsMarkedForDeletion)
+	}
+
 	rows, err := c.db.Query(
 		`SELECT *
 		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_header_data
@@ -177,7 +185,7 @@ func (c *DPFMAPICaller) HeadersByOwnerProductionPlantBusinessPartner(
 	output *dpfm_api_output_formatter.SDC,
 	errs *[]error,
 	log *logger.Logger,
-) *[]dpfm_api_output_formatter.HeadersByOwnerProductionPlantBusinessPartner {
+) *[]dpfm_api_output_formatter.Header {
 	ownerProductionPlantBusinessPartner := input.Header.OwnerProductionPlantBusinessPartner
 
 	rows, err := c.db.Query(
@@ -197,7 +205,7 @@ func (c *DPFMAPICaller) HeadersByOwnerProductionPlantBusinessPartner(
 	}
 	defer rows.Close()
 
-	data, err := dpfm_api_output_formatter.ConvertToHeadersByOwnerProductionPlantBusinessPartner(rows)
+	data, err := dpfm_api_output_formatter.ConvertToHeader(rows)
 	if err != nil {
 		*errs = append(*errs, err)
 		return nil

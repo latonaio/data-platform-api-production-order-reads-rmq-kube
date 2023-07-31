@@ -13,10 +13,10 @@ type ItemOperation struct {
 	Product												string		`json:"Product"`
 	Buyer												int			`json:"Buyer"`
 	Seller												int			`json:"Seller"`
-	DeliverToParty										int			`json:"DeliverToParty"`
-	DeliverToPlant										string		`json:"DeliverToPlant"`
 	DeliverFromParty									int			`json:"DeliverFromParty"`
 	DeliverFromPlant									string		`json:"DeliverFromPlant"`
+	DeliverToParty										int			`json:"DeliverToParty"`
+	DeliverToPlant										string		`json:"DeliverToPlant"`
 	ProductionPlantBusinessPartner						int			`json:"ProductionPlantBusinessPartner"`
 	ProductionPlant										string		`json:"ProductionPlant"`
 	MRPArea												*string		`json:"MRPArea"`

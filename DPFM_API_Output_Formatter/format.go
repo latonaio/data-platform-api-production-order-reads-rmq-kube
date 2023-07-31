@@ -76,7 +76,68 @@ func ConvertToHeader(rows *sql.Rows) (*[]Header, error) {
 			fmt.Printf("err = %+v \n", err)
 			return &header, err
 		}
-		header = append(header, pm)
+
+		data := pm
+		header = append(header, Header{
+			ProductionOrder:                                  data.ProductionOrder,
+			SupplyChainRelationshipID:                        data.SupplyChainRelationshipID,
+			SupplyChainRelationshipProductionPlantID:         data.SupplyChainRelationshipProductionPlantID,
+			SupplyChainRelationshipDeliveryID:                data.SupplyChainRelationshipDeliveryID,
+			SupplyChainRelationshipDeliveryPlantID:           data.SupplyChainRelationshipDeliveryPlantID,
+			ProductionOrderType:                              data.ProductionOrderType,
+			Product:                                          data.Product,
+			Buyer:                                            data.Buyer,
+			Seller:                                           data.Seller,
+			OwnerProductionPlantBusinessPartner:              data.OwnerProductionPlantBusinessPartner,
+			OwnerProductionPlant:                             data.OwnerProductionPlant,
+			OwnerProductionPlantStorageLocation:              data.OwnerProductionPlantStorageLocation,
+			DepartureDeliverFromParty:                        data.DepartureDeliverFromParty,
+			DepartureDeliverFromPlant:                        data.DepartureDeliverFromPlant,
+			DepartureDeliverFromPlantStorageLocation:         data.DepartureDeliverFromPlantStorageLocation,
+			DestinationDeliverToParty:                        data.DestinationDeliverToParty,
+			DestinationDeliverToPlant:                        data.DestinationDeliverToPlant,
+			DestinationDeliverToPlantStorageLocation:         data.DestinationDeliverToPlantStorageLocation,
+			ProductBaseUnit:                                  data.ProductBaseUnit,
+			MRPArea:                                          data.MRPArea,
+			MRPController:                                    data.MRPController,
+			ProductionVersion:                                data.ProductionVersion,
+			BillOfMaterial:                                   data.BillOfMaterial,
+			Operations:                                       data.Operations,
+			ProductionOrderQuantityInBaseUnit:                data.ProductionOrderQuantityInBaseUnit,
+			ProductionOrderQuantityInDepartureProductionUnit: data.ProductionOrderQuantityInDepartureProductionUnit,
+			ProductionOrderQuantityInDestinationProductionUnit: data.ProductionOrderQuantityInDestinationProductionUnit,
+			ProductionOrderQuantityInDepartureDeliveryUnit:     data.ProductionOrderQuantityInDepartureDeliveryUnit,
+			ProductionOrderQuantityInDestinationDeliveryUnit:   data.ProductionOrderQuantityInDestinationDeliveryUnit,
+			ProductionOrderDepartureProductionUnit:             data.ProductionOrderDepartureProductionUnit,
+			ProductionOrderDestinationProductionUnit:           data.ProductionOrderDestinationProductionUnit,
+			ProductionOrderDepartureDeliveryUnit:               data.ProductionOrderDepartureDeliveryUnit,
+			ProductionOrderDestinationDeliveryUnit:             data.ProductionOrderDestinationDeliveryUnit,
+			ProductionOrderPlannedScrapQtyInBaseUnit:           data.ProductionOrderPlannedScrapQtyInBaseUnit,
+			ProductionOrderPlannedStartDate:                    data.ProductionOrderPlannedStartDate,
+			ProductionOrderPlannedStartTime:                    data.ProductionOrderPlannedStartTime,
+			ProductionOrderPlannedEndDate:                      data.ProductionOrderPlannedEndDate,
+			ProductionOrderPlannedEndTime:                      data.ProductionOrderPlannedEndTime,
+			ProductionOrderActualReleaseDate:                   data.ProductionOrderActualReleaseDate,
+			ProductionOrderActualReleaseTime:                   data.ProductionOrderActualReleaseTime,
+			ProductionOrderActualStartDate:                     data.ProductionOrderActualStartDate,
+			ProductionOrderActualStartTime:                     data.ProductionOrderActualStartTime,
+			ProductionOrderActualEndDate:                       data.ProductionOrderActualEndDate,
+			ProductionOrderActualEndTime:                       data.ProductionOrderActualEndTime,
+			PlannedOrder:                                       data.PlannedOrder,
+			OrderID:                                            data.OrderID,
+			OrderItem:                                          data.OrderItem,
+			ProductionOrderHeaderText:                          data.ProductionOrderHeaderText,
+			CreationDate:                                       data.CreationDate,
+			CreationTime:                                       data.CreationTime,
+			LastChangeDate:                                     data.LastChangeDate,
+			LastChangeTime:                                     data.LastChangeTime,
+			IsReleased:                                         data.IsReleased,
+			IsPartiallyConfirmed:                               data.IsPartiallyConfirmed,
+			IsConfirmed:                                        data.IsConfirmed,
+			IsLocked:                                           data.IsLocked,
+			IsCancelled:                                        data.IsCancelled,
+			IsMarkedForDeletion:                                data.IsMarkedForDeletion,
+		})
 	}
 	if i == 0 {
 		fmt.Printf("DBに対象のレコードが存在しません。")
@@ -104,7 +165,7 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 			&pm.SupplyChainRelationshipDeliveryPlantID,
 			&pm.ProductionOrderType,
 			&pm.Product,
-			&pm.ProductProductionUnit,
+			&pm.Buyer,
 			&pm.Seller,
 			&pm.ProductionPlantBusinessPartner,
 			&pm.ProductionPlant,
@@ -115,11 +176,11 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 			&pm.DeliverFromParty,
 			&pm.DeliverFromPlant,
 			&pm.DeliverFromPlantStorageLocation,
-			&pm.MRPArea,
-			&pm.MRPController,
 			&pm.ProductBaseUnit,
 			&pm.ProductProductionUnit,
 			&pm.ProductDeliveryUnit,
+			&pm.MRPArea,
+			&pm.MRPController,
 			&pm.ProductionVersion,
 			&pm.ProductionVersionItem,
 			&pm.BillOfMaterial,
@@ -162,7 +223,6 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 			&pm.CreationTime,
 			&pm.LastChangeDate,
 			&pm.LastChangeTime,
-			&pm.ComponentProductAvailabilityIsNotChecked,
 			&pm.IsReleased,
 			&pm.IsPartiallyConfirmed,
 			&pm.IsConfirmed,
@@ -174,7 +234,84 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 			fmt.Printf("err = %+v \n", err)
 			return &item, err
 		}
-		item = append(item, pm)
+
+		data := pm
+		item = append(item, Item{
+			ProductionOrder:                               data.ProductionOrder,
+			ProductionOrderItem:                           data.ProductionOrderItem,
+			PrecedingProductionOrderItem:                  data.PrecedingProductionOrderItem,
+			FollowingProductionOrderItem:                  data.FollowingProductionOrderItem,
+			SupplyChainRelationshipID:                     data.SupplyChainRelationshipID,
+			SupplyChainRelationshipProductionPlantID:      data.SupplyChainRelationshipProductionPlantID,
+			SupplyChainRelationshipDeliveryID:             data.SupplyChainRelationshipDeliveryID,
+			SupplyChainRelationshipDeliveryPlantID:        data.SupplyChainRelationshipDeliveryPlantID,
+			ProductionOrderType:                           data.ProductionOrderType,
+			Product:                                       data.Product,
+			Buyer:                                         data.Buyer,
+			Seller:                                        data.Seller,
+			ProductionPlantBusinessPartner:                data.ProductionPlantBusinessPartner,
+			ProductionPlant:                               data.ProductionPlant,
+			ProductionPlantStorageLocation:                data.ProductionPlantStorageLocation,
+			DeliverToParty:                                data.DeliverToParty,
+			DeliverToPlant:                                data.DeliverToPlant,
+			DeliverToPlantStorageLocation:                 data.DeliverToPlantStorageLocation,
+			DeliverFromParty:                              data.DeliverFromParty,
+			DeliverFromPlant:                              data.DeliverFromPlant,
+			DeliverFromPlantStorageLocation:               data.DeliverFromPlantStorageLocation,
+			ProductBaseUnit:                               data.ProductBaseUnit,
+			ProductProductionUnit:                         data.ProductProductionUnit,
+			ProductDeliveryUnit:                           data.ProductDeliveryUnit,
+			MRPArea:                                       data.MRPArea,
+			MRPController:                                 data.MRPController,
+			ProductionVersion:                             data.ProductionVersion,
+			ProductionVersionItem:                         data.ProductionVersionItem,
+			BillOfMaterial:                                data.BillOfMaterial,
+			Operations:                                    data.Operations,
+			ProductionOrderQuantityInBaseUnit:             data.ProductionOrderQuantityInBaseUnit,
+			ProductionOrderQuantityInProductionUnit:       data.ProductionOrderQuantityInProductionUnit,
+			ProductionOrderQuantityInDeliveryUnit:         data.ProductionOrderQuantityInDeliveryUnit,
+			ProductionOrderPlannedScrapQtyInBaseUnit:      data.ProductionOrderPlannedScrapQtyInBaseUnit,
+			ProductionOrderMinimumLotSizeQuantity:         data.ProductionOrderMinimumLotSizeQuantity,
+			ProductionOrderStandardLotSizeQuantity:        data.ProductionOrderStandardLotSizeQuantity,
+			ProductionOrderMaximumLotSizeQuantity:         data.ProductionOrderMaximumLotSizeQuantity,
+			ProductionOrderLotSizeRoundingQuantity:        data.ProductionOrderLotSizeRoundingQuantity,
+			ProductionOrderLotSizeIsFixed:                 data.ProductionOrderLotSizeIsFixed,
+			ProductionOrderPlannedStartDate:               data.ProductionOrderPlannedStartDate,
+			ProductionOrderPlannedStartTime:               data.ProductionOrderPlannedStartTime,
+			ProductionOrderPlannedEndDate:                 data.ProductionOrderPlannedEndDate,
+			ProductionOrderPlannedEndTime:                 data.ProductionOrderPlannedEndTime,
+			ProductionOrderActualReleaseDate:              data.ProductionOrderActualReleaseDate,
+			ProductionOrderActualReleaseTime:              data.ProductionOrderActualReleaseTime,
+			ProductionOrderActualStartDate:                data.ProductionOrderActualStartDate,
+			ProductionOrderActualStartTime:                data.ProductionOrderActualStartTime,
+			ProductionOrderActualEndDate:                  data.ProductionOrderActualEndDate,
+			ProductionOrderActualEndTime:                  data.ProductionOrderActualEndTime,
+			ConfirmedYieldQuantityInBaseUnit:              data.ConfirmedYieldQuantityInBaseUnit,
+			ConfirmedYieldQuantityInProductionUnit:        data.ConfirmedYieldQuantityInProductionUnit,
+			ScrappedQuantityInBaseUnit:                    data.ScrappedQuantityInBaseUnit,
+			PlannedOrder:                                  data.PlannedOrder,
+			PlannedOrderItem:                              data.PlannedOrderItem,
+			OrderID:                                       data.OrderID,
+			OrderItem:                                     data.OrderItem,
+			ProductIsBatchManagedInProductionPlant:        data.ProductIsBatchManagedInProductionPlant,
+			BatchMgmtPolicyInProductionOrder:              data.BatchMgmtPolicyInProductionOrder,
+			ProductionOrderTargetedBatch:                  data.ProductionOrderTargetedBatch,
+			ProductionOrderTargetedBatchValidityStartDate: data.ProductionOrderTargetedBatchValidityStartDate,
+			ProductionOrderTargetedBatchValidityStartTime: data.ProductionOrderTargetedBatchValidityStartTime,
+			ProductionOrderTargetedBatchValidityEndDate:   data.ProductionOrderTargetedBatchValidityEndDate,
+			ProductionOrderTargetedBatchValidityEndTime:   data.ProductionOrderTargetedBatchValidityEndTime,
+			ProductionOrderItemText:                       data.ProductionOrderItemText,
+			CreationDate:                                  data.CreationDate,
+			CreationTime:                                  data.CreationTime,
+			LastChangeDate:                                data.LastChangeDate,
+			LastChangeTime:                                data.LastChangeTime,
+			IsReleased:                                    data.IsReleased,
+			IsPartiallyConfirmed:                          data.IsPartiallyConfirmed,
+			IsConfirmed:                                   data.IsConfirmed,
+			IsLocked:                                      data.IsLocked,
+			IsCancelled:                                   data.IsCancelled,
+			IsMarkedForDeletion:                           data.IsMarkedForDeletion,
+		})
 	}
 	if i == 0 {
 		fmt.Printf("DBに対象のレコードが存在しません。")
@@ -565,30 +702,4 @@ func ConvertToItemOperationComponent(rows *sql.Rows) (*[]ItemOperationComponent,
 	}
 
 	return &itemOperationComponent, nil
-}
-
-func ConvertToHeadersByOwnerProductionPlantBusinessPartner(rows *sql.Rows) (*[]HeadersByOwnerProductionPlantBusinessPartner, error) {
-	defer rows.Close()
-	headersByOwnerProductionPlantBusinessPartner := make([]HeadersByOwnerProductionPlantBusinessPartner, 0)
-	i := 0
-	for rows.Next() {
-		i++
-		pm := HeadersByOwnerProductionPlantBusinessPartner{}
-		err := rows.Scan(
-			&pm.ProductionOrder,
-			&pm.MRPArea,
-			&pm.OwnerProductionPlantBusinessPartnerName,
-		)
-		if err != nil {
-			fmt.Printf("err = %+v \n", err)
-			return &headersByOwnerProductionPlantBusinessPartner, err
-		}
-		headersByOwnerProductionPlantBusinessPartner = append(headersByOwnerProductionPlantBusinessPartner, pm)
-	}
-	if i == 0 {
-		fmt.Printf("DBに対象のレコードが存在しません。")
-		return &headersByOwnerProductionPlantBusinessPartner, nil
-	}
-
-	return &headersByOwnerProductionPlantBusinessPartner, nil
 }
