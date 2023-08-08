@@ -76,6 +76,10 @@ func (c *DPFMAPICaller) readSqlProcess(
 			func() {
 				itemOperationComponent = c.ItemOperationComponent(mtx, input, output, errs, log)
 			}()
+		case "ItemOperationComponents":
+			func() {
+				itemOperationComponent = c.ItemOperationComponents(mtx, input, output, errs, log)
+			}()
 		case "ItemOperationCosting":
 			func() {
 				itemOperationCosting = c.ItemOperationCosting(mtx, input, output, errs, log)
@@ -390,11 +394,13 @@ func (c *DPFMAPICaller) ItemOperations(
 	}
 
 	where := fmt.Sprintf("WHERE ProductionOrder = %d", input.Header.ProductionOrder)
-	if item != nil {
-		if &item.ProductionOrderItem != nil {
-			where = fmt.Sprintf("%s\nAND ProductionOrderItem = %d", where, item.ProductionOrderItem)
-		}
-	}
+
+	//if item != nil {
+	//	if &item.ProductionOrderItem != nil {
+	//		where = fmt.Sprintf("%s\nAND ProductionOrderItem = %d", where, item.ProductionOrderItem)
+	//	}
+	//}
+
 	if itemOperation != nil {
 		if itemOperation.IsMarkedForDeletion != nil {
 			where = fmt.Sprintf("%s\nAND IsMarkedForDeletion = %v", where, *itemOperation.IsMarkedForDeletion)
@@ -403,7 +409,7 @@ func (c *DPFMAPICaller) ItemOperations(
 
 	rows, err := c.db.Query(
 		`SELECT *
-		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_item_operations_data
+		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_item_operation_data
 		` + where + ` ORDER BY ProductionOrder DESC, OperationsItem ASC;`)
 	if err != nil {
 		*errs = append(*errs, err)
@@ -534,7 +540,7 @@ func (c *DPFMAPICaller) ItemOperation(
 
 	rows, err := c.db.Query(
 		`SELECT *
-		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_item_operations_data
+		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_item_operation_data
 		WHERE (ProductionOrder, ProductionOrderItem, Operations, OperationsItem) IN ( `+repeat+` ) 
 		ORDER BY ProductionOrder DESC, OperationsItem ASC;`, args...,
 	)
@@ -595,6 +601,52 @@ func (c *DPFMAPICaller) ItemOperationComponent(
 		*errs = append(*errs, err)
 		return nil
 	}
+	return data
+}
+
+func (c *DPFMAPICaller) ItemOperationComponents(
+	mtx *sync.Mutex,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	errs *[]error,
+	log *logger.Logger,
+) *[]dpfm_api_output_formatter.ItemOperationComponent {
+	item := &dpfm_api_input_reader.Item{}
+	itemOperation := &dpfm_api_input_reader.ItemOperation{}
+	if len(input.Header.Item) > 0 {
+		item = &input.Header.Item[0]
+	}
+
+	where := fmt.Sprintf("WHERE ProductionOrder = %d", input.Header.ProductionOrder)
+
+	if item != nil {
+		if &item.ProductionOrderItem != nil {
+			where = fmt.Sprintf("%s\nAND ProductionOrderItem = %d", where, item.ProductionOrderItem)
+		}
+	}
+
+	if itemOperation != nil {
+		if itemOperation.IsMarkedForDeletion != nil {
+			where = fmt.Sprintf("%s\nAND IsMarkedForDeletion = %v", where, *itemOperation.IsMarkedForDeletion)
+		}
+	}
+
+	rows, err := c.db.Query(
+		`SELECT *
+		FROM DataPlatformMastersAndTransactionsMysqlKube.data_platform_production_order_item_operation_component_data
+		` + where + ` ORDER BY ProductionOrder DESC;`)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
+	defer rows.Close()
+
+	data, err := dpfm_api_output_formatter.ConvertToItemOperationComponent(rows)
+	if err != nil {
+		*errs = append(*errs, err)
+		return nil
+	}
+
 	return data
 }
 

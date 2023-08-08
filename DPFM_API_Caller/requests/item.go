@@ -16,12 +16,12 @@ type Item struct {
 	ProductionPlantBusinessPartner                int     `json:"ProductionPlantBusinessPartner"`
 	ProductionPlant                               string  `json:"ProductionPlant"`
 	ProductionPlantStorageLocation                string  `json:"ProductionPlantStorageLocation"`
-	DeliverToParty                                int     `json:"DeliverToParty"`
-	DeliverToPlant                                string  `json:"DeliverToPlant"`
-	DeliverToPlantStorageLocation                 string  `json:"DeliverToPlantStorageLocation"`
 	DeliverFromParty                              int     `json:"DeliverFromParty"`
 	DeliverFromPlant                              string  `json:"DeliverFromPlant"`
 	DeliverFromPlantStorageLocation               string  `json:"DeliverFromPlantStorageLocation"`
+	DeliverToParty                                int     `json:"DeliverToParty"`
+	DeliverToPlant                                string  `json:"DeliverToPlant"`
+	DeliverToPlantStorageLocation                 string  `json:"DeliverToPlantStorageLocation"`
 	ProductBaseUnit                               string  `json:"ProductBaseUnit"`
 	ProductProductionUnit                         string  `json:"ProductProductionUnit"`
 	ProductDeliveryUnit                           string  `json:"ProductDeliveryUnit"`

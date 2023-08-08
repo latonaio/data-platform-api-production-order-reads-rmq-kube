@@ -5,11 +5,11 @@
   "filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
   "api_status_code": 200,
   "runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
-  "business_partner": 101,
+  "business_partner": 201,
   "service_label": "PRODUCTION_ORDER",
   "api_type": "reads",
   "ProductionOrder": {
-    "ProductionOrder": 2,
+    "ProductionOrder": 1,
     "ProductionOrderType": "",
     "CreationDate": "",
     "LastChangeDate": "",
@@ -93,8 +93,6 @@
     ]
   },
   "api_schema": "DPFMProductionOrderReads",
-  "accepter": [
-    "ItemOperations"
-  ],
+  "accepter": ["ItemOperationComponents"],
   "deleted": false
 }
