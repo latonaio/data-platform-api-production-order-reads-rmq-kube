@@ -21,7 +21,7 @@ data-platform-api-production-order-reads-rmq-kube には、次の API をコー�
 * A_Header（データ連携基盤 オーダー - ヘッダデータ）
 * A_HeaderDoc（データ連携基盤 オーダー - ヘッダ文書データ）
 * A_Partner（データ連携基盤 オーダー - 取引先データ）
-* A_Address（データ連携基盤 オーダー - 取引先データ）
+* A_Address（データ連携基盤 オーダー - 住所データ）
 * A_Item（データ連携基盤 オーダー - 明細データ）
 * A_ItemComponent（データ連携基盤 オーダー - 明細構成品目データ）
 * A_ItemComponentDeliveryScheduleLine（データ連携基盤 オーダー - 明細構成品目納入日程行データ）

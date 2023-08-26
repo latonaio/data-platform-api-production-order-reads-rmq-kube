@@ -9,7 +9,7 @@
 	"service_label": "PRODUCTION_ORDER",
 	"api_type": "reads",
 	"ProductionOrder": {
-		"ProductionOrder": 2,
+		"ProductionOrder": 1,
 		"SupplyChainRelationshipID": null,
 		"SupplyChainRelationshipDeliveryID": null,
 		"SupplyChainRelationshipDeliveryPlantID": null,
@@ -80,7 +80,7 @@
 		],
 		"Item": [
 			{
-				"ProductionOrderItem": null,
+				"ProductionOrderItem": 1,
 				"PrecedingProductionOrderItem": null,
 				"FollowingProductionOrderItem": null,
 				"SupplyChainRelationshipID": null,
@@ -262,9 +262,9 @@
 				],
 				"ItemOperation": [
 					{
-						"Operations": null,
-						"OperationsItem": null,
-						"OperationID": null,
+						"Operations": 1,
+						"OperationsItem": 1000,
+						"OperationID": 1,
 						"OperationType": "",
 						"SupplyChainRelationshipID": null,
 						"SupplyChainRelationshipDeliveryID": null,
@@ -410,6 +410,6 @@
 	},
 	"api_schema": "DPFMProductionOrderReads",
 	"accepter": [
-		"Header"
+		"ItemOperation"
 	]
 }

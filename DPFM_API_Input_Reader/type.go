@@ -180,45 +180,45 @@ type Item struct {
 	ProductionOrderItem                           int             `json:"ProductionOrderItem"`
 	PrecedingProductionOrderItem                  *int            `json:"PrecedingProductionOrderItem"`
 	FollowingProductionOrderItem                  *int            `json:"FollowingProductionOrderItem"`
-	SupplyChainRelationshipID                     int             `json:"SupplyChainRelationshipID"`
-	SupplyChainRelationshipProductionPlantID      int             `json:"SupplyChainRelationshipProductionPlantID"`
-	SupplyChainRelationshipDeliveryID             int             `json:"SupplyChainRelationshipDeliveryID"`
-	SupplyChainRelationshipDeliveryPlantID        int             `json:"SupplyChainRelationshipDeliveryPlantID"`
-	ProductionOrderType                           string          `json:"ProductionOrderType"`
-	Product                                       string          `json:"Product"`
-	Buyer                                         int             `json:"Buyer"`
-	Seller                                        int             `json:"Seller"`
-	ProductionPlantBusinessPartner                int             `json:"ProductionPlantBusinessPartner"`
-	ProductionPlant                               string          `json:"ProductionPlant"`
-	ProductionPlantStorageLocation                string          `json:"ProductionPlantStorageLocation"`
-	DeliverFromParty                              int             `json:"DeliverFromParty"`
-	DeliverFromPlant                              string          `json:"DeliverFromPlant"`
-	DeliverFromPlantStorageLocation               string          `json:"DeliverFromPlantStorageLocation"`
-	DeliverToParty                                int             `json:"DeliverToParty"`
-	DeliverToPlant                                string          `json:"DeliverToPlant"`
-	DeliverToPlantStorageLocation                 string          `json:"DeliverToPlantStorageLocation"`
-	ProductBaseUnit                               string          `json:"ProductBaseUnit"`
-	ProductProductionUnit                         string          `json:"ProductProductionUnit"`
-	ProductDeliveryUnit                           string          `json:"ProductDeliveryUnit"`
+	SupplyChainRelationshipID                     *int            `json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipProductionPlantID      *int            `json:"SupplyChainRelationshipProductionPlantID"`
+	SupplyChainRelationshipDeliveryID             *int            `json:"SupplyChainRelationshipDeliveryID"`
+	SupplyChainRelationshipDeliveryPlantID        *int            `json:"SupplyChainRelationshipDeliveryPlantID"`
+	ProductionOrderType                           *string         `json:"ProductionOrderType"`
+	Product                                       *string         `json:"Product"`
+	Buyer                                         *int            `json:"Buyer"`
+	Seller                                        *int            `json:"Seller"`
+	ProductionPlantBusinessPartner                *int            `json:"ProductionPlantBusinessPartner"`
+	ProductionPlant                               *string         `json:"Productionlant"`
+	ProductionPlantStorageLocation                *string         `json:"ProductionPlantStorageLocation"`
+	DeliverFromParty                              *int            `json:"DeliverFromParty"`
+	DeliverFromPlant                              *string         `json:"DeliverFromPlant"`
+	DeliverFromPlantStorageLocation               *string         `json:"DeliverFromPlantStorageLocation"`
+	DeliverToParty                                *int            `json:"DeliverToParty"`
+	DeliverToPlant                                *string         `json:"DeliverToPlant"`
+	DeliverToPlantStorageLocation                 *string         `json:"DeliverToPlantStorageLocation"`
+	ProductBaseUnit                               *string         `json:"ProductBaseUnit"`
+	ProductProductionUnit                         *string         `json:"ProductProductionUnit"`
+	ProductDeliveryUnit                           *string         `json:"ProductDeliveryUnit"`
 	MRPArea                                       *string         `json:"MRPArea"`
 	MRPController                                 *string         `json:"MRPController"`
 	ProductionVersion                             *int            `json:"ProductionVersion"`
 	ProductionVersionItem                         *int            `json:"ProductionVersionItem"`
-	BillOfMaterial                                int             `json:"BillOfMaterial"`
-	Operations                                    int             `json:"Operations"`
-	ProductionOrderQuantityInBaseUnit             float32         `json:"ProductionOrderQuantityInBaseUnit"`
-	ProductionOrderQuantityInProductionUnit       float32         `json:"ProductionOrderQuantityInProductionUnit"`
-	ProductionOrderQuantityInDeliveryUnit         float32         `json:"ProductionOrderQuantityInDeliveryUnit"`
+	BillOfMaterial                                *int            `json:"BillOfMaterial"`
+	Operations                                    *int            `json:"Operations"`
+	ProductionOrderQuantityInBaseUnit             *float32        `json:"ProductionOrderQuantityInBaseUnit"`
+	ProductionOrderQuantityInProductionUnit       *float32        `json:"ProductionOrderQuantityInProductionUnit"`
+	ProductionOrderQuantityInDeliveryUnit         *float32        `json:"ProductionOrderQuantityInDeliveryUnit"`
 	ProductionOrderPlannedScrapQtyInBaseUnit      *float32        `json:"ProductionOrderPlannedScrapQtyInBaseUnit"`
-	ProductionOrderMinimumLotSizeQuantity         float32         `json:"ProductionOrderMinimumLotSizeQuantity"`
-	ProductionOrderStandardLotSizeQuantity        float32         `json:"ProductionOrderStandardLotSizeQuantity"`
-	ProductionOrderMaximumLotSizeQuantity         float32         `json:"ProductionOrderMaximumLotSizeQuantity"`
+	ProductionOrderMinimumLotSizeQuantity         *float32        `json:"ProductionOrderMinimumLotSizeQuantity"`
+	ProductionOrderStandardLotSizeQuantity        *float32        `json:"ProductionOrderStandardLotSizeQuantity"`
+	ProductionOrderMaximumLotSizeQuantity         *float32        `json:"ProductionOrderMaximumLotSizeQuantity"`
 	ProductionOrderLotSizeRoundingQuantity        *float32        `json:"ProductionOrderLotSizeRoundingQuantity"`
 	ProductionOrderLotSizeIsFixed                 *bool           `json:"ProductionOrderLotSizeIsFixed"`
-	ProductionOrderPlannedStartDate               string          `json:"ProductionOrderPlannedStartDate"`
-	ProductionOrderPlannedStartTime               string          `json:"ProductionOrderPlannedStartTime"`
-	ProductionOrderPlannedEndDate                 string          `json:"ProductionOrderPlannedEndDate"`
-	ProductionOrderPlannedEndTime                 string          `json:"ProductionOrderPlannedEndTime"`
+	ProductionOrderPlannedStartDate               *string         `json:"ProductionOrderPlannedStartDate"`
+	ProductionOrderPlannedStartTime               *string         `json:"ProductionOrderPlannedStartTime"`
+	ProductionOrderPlannedEndDate                 *string         `json:"ProductionOrderPlannedEndDate"`
+	ProductionOrderPlannedEndTime                 *string         `json:"ProductionOrderPlannedEndTime"`
 	ProductionOrderActualReleaseDate              *string         `json:"ProductionOrderActualReleaseDate"`
 	ProductionOrderActualReleaseTime              *string         `json:"ProductionOrderActualReleaseTime"`
 	ProductionOrderActualStartDate                *string         `json:"ProductionOrderActualStartDate"`
@@ -388,6 +388,7 @@ type ItemOperation struct {
 	Operations                                      int                      `json:"Operations"`
 	OperationsItem                                  int                      `json:"OperationsItem"`
 	OperationID                                     int                      `json:"OperationID"`
+	OperationType                            		*string   				 `json:"OperationType"`
 	SupplyChainRelationshipID                       *int                     `json:"SupplyChainRelationshipID"`
 	SupplyChainRelationshipDeliveryID               *int                     `json:"SupplyChainRelationshipDeliveryID"`
 	SupplyChainRelationshipDeliveryPlantID          *int                     `json:"SupplyChainRelationshipDeliveryPlantID"`

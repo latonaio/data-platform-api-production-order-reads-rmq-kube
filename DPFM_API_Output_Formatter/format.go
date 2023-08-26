@@ -494,44 +494,6 @@ func ConvertToItemComponentCosting(rows *sql.Rows) (*[]ItemComponentCosting, err
 	return &itemComponentCosting, nil
 }
 
-func ConvertToItemOperationCosting(rows *sql.Rows) (*[]ItemOperationCosting, error) {
-	defer rows.Close()
-	itemOperationCosting := make([]ItemOperationCosting, 0)
-	i := 0
-	for rows.Next() {
-		i++
-		pm := ItemOperationCosting{}
-		err := rows.Scan(
-			&pm.ProductionOrder,
-			&pm.ProductionOrderItem,
-			&pm.Operations,
-			&pm.OperationsItem,
-			&pm.OperationID,
-			&pm.Currency,
-			&pm.CostingAmount,
-			&pm.CreationDate,
-			&pm.CreationTime,
-			&pm.LastChangeDate,
-			&pm.LastChangeTime,
-			&pm.IsReleased,
-			&pm.IsLocked,
-			&pm.IsCancelled,
-			&pm.IsMarkedForDeletion,
-		)
-		if err != nil {
-			fmt.Printf("err = %+v \n", err)
-			return &itemOperationCosting, err
-		}
-		itemOperationCosting = append(itemOperationCosting, pm)
-	}
-	if i == 0 {
-		fmt.Printf("DBに対象のレコードが存在しません。")
-		return &itemOperationCosting, nil
-	}
-
-	return &itemOperationCosting, nil
-}
-
 func ConvertToItemOperation(rows *sql.Rows) (*[]ItemOperation, error) {
 	defer rows.Close()
 	itemOperation := make([]ItemOperation, 0)
@@ -545,6 +507,7 @@ func ConvertToItemOperation(rows *sql.Rows) (*[]ItemOperation, error) {
 			&pm.Operations,
 			&pm.OperationsItem,
 			&pm.OperationID,
+			&pm.OperationType,
 			&pm.SupplyChainRelationshipID,
 			&pm.SupplyChainRelationshipDeliveryID,
 			&pm.SupplyChainRelationshipDeliveryPlantID,
@@ -702,4 +665,42 @@ func ConvertToItemOperationComponent(rows *sql.Rows) (*[]ItemOperationComponent,
 	}
 
 	return &itemOperationComponent, nil
+}
+
+func ConvertToItemOperationCosting(rows *sql.Rows) (*[]ItemOperationCosting, error) {
+	defer rows.Close()
+	itemOperationCosting := make([]ItemOperationCosting, 0)
+	i := 0
+	for rows.Next() {
+		i++
+		pm := ItemOperationCosting{}
+		err := rows.Scan(
+			&pm.ProductionOrder,
+			&pm.ProductionOrderItem,
+			&pm.Operations,
+			&pm.OperationsItem,
+			&pm.OperationID,
+			&pm.Currency,
+			&pm.CostingAmount,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsLocked,
+			&pm.IsCancelled,
+			&pm.IsMarkedForDeletion,
+		)
+		if err != nil {
+			fmt.Printf("err = %+v \n", err)
+			return &itemOperationCosting, err
+		}
+		itemOperationCosting = append(itemOperationCosting, pm)
+	}
+	if i == 0 {
+		fmt.Printf("DBに対象のレコードが存在しません。")
+		return &itemOperationCosting, nil
+	}
+
+	return &itemOperationCosting, nil
 }
