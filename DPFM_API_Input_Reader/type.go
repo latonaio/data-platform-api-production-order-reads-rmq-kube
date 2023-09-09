@@ -158,21 +158,9 @@ type Header struct {
 	IsLocked                                           *bool       `json:"IsLocked"`
 	IsCancelled                                        *bool       `json:"IsCancelled"`
 	IsMarkedForDeletion                                *bool       `json:"IsMarkedForDeletion"`
-	HeaderDoc                                          []HeaderDoc `json:"HeaderDoc"`
 	Item                                               []Item      `json:"Item"`
 	Partner                                            []Partner   `json:"Partner"`
 	Address                                            []Address   `json:"Address"`
-}
-
-type HeaderDoc struct {
-	ProductionOrder          int     `json:"ProductionOrder"`
-	DocType                  string  `json:"DocType"`
-	DocVersionID             int     `json:"DocVersionID"`
-	DocID                    string  `json:"DocID"`
-	FileExtension            *string `json:"FileExtension"`
-	FileName                 *string `json:"FileName"`
-	FilePath                 *string `json:"FilePath"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
 }
 
 type Item struct {
@@ -252,7 +240,6 @@ type Item struct {
 	IsMarkedForDeletion                           *bool           `json:"IsMarkedForDeletion"`
 	ItemComponent                                 []ItemComponent `json:"ItemComponent"`
 	ItemOperation                                 []ItemOperation `json:"ItemOperation"`
-	ItemDoc                                       []ItemDoc       `json:"ItemDoc"`
 }
 
 type ItemComponent struct {
@@ -368,18 +355,6 @@ type ItemComponentCosting struct {
 	IsLocked            *bool    `json:"IsLocked"`
 	IsCancelled         *bool    `json:"IsCancelled"`
 	IsMarkedForDeletion *bool    `json:"IsMarkedForDeletion"`
-}
-
-type ItemDoc struct {
-	ProductionOrder          int     `json:"ProductionOrder"`
-	ProductionOrderItem      int     `json:"ProductionOrderItem"`
-	DocType                  string  `json:"DocType"`
-	DocVersionID             int     `json:"DocVersionID"`
-	DocID                    string  `json:"DocID"`
-	FileExtension            string  `json:"FileExtension"`
-	FileName                 *string `json:"FileName"`
-	FilePath                 *string `json:"FilePath"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
 }
 
 type ItemOperation struct {

@@ -21,7 +21,6 @@ func (c *DPFMAPICaller) readSqlProcess(
 	log *logger.Logger,
 ) interface{} {
 	var header *[]dpfm_api_output_formatter.Header
-	// var headerDoc *[]dpfm_api_output_formatter.HeaderDoc
 	var item *[]dpfm_api_output_formatter.Item
 	var itemComponent *[]dpfm_api_output_formatter.ItemComponent
 	var itemComponentDeliveryScheduleLine *[]dpfm_api_output_formatter.ItemComponentDeliveryScheduleLine

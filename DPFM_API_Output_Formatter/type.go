@@ -26,7 +26,6 @@ type SDC struct {
 
 type Message struct {
 	Header                            *[]Header                            `json:"Header"`
-	HeaderDoc                         *[]HeaderDoc                         `json:"HeaderDoc"`
 	Item                              *[]Item                              `json:"Item"`
 	ItemComponent                     *[]ItemComponent                     `json:"ItemComponent"`
 	ItemComponentDeliveryScheduleLine *[]ItemComponentDeliveryScheduleLine `json:"ItemComponentDeliveryScheduleLine"`
@@ -95,17 +94,6 @@ type Header struct {
 	IsLocked                                           *bool    `json:"IsLocked"`
 	IsCancelled                                        *bool    `json:"IsCancelled"`
 	IsMarkedForDeletion                                *bool    `json:"IsMarkedForDeletion"`
-}
-
-type HeaderDoc struct {
-	ProductionOrder          int     `json:"ProductionOrder"`
-	DocType                  string  `json:"DocType"`
-	DocVersionID             int     `json:"DocVersionID"`
-	DocID                    string  `json:"DocID"`
-	FileExtension            string  `json:"FileExtension"`
-	FileName                 *string `json:"FileName"`
-	FilePath                 *string `json:"FilePath"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
 }
 
 type Item struct {
@@ -296,18 +284,6 @@ type ItemComponentCosting struct {
 	IsLocked            *bool   `json:"IsLocked"`
 	IsCancelled         *bool   `json:"IsCancelled"`
 	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
-}
-
-type ItemDoc struct {
-	ProductionOrder          int     `json:"ProductionOrder"`
-	ProductionOrderItem      int     `json:"ProductionOrderItem"`
-	DocType                  string  `json:"DocType"`
-	DocVersionID             int     `json:"DocVersionID"`
-	DocID                    string  `json:"DocID"`
-	FileExtension            string  `json:"FileExtension"`
-	FileName                 *string `json:"FileName"`
-	FilePath                 *string `json:"FilePath"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
 }
 
 type ItemOperation struct {
