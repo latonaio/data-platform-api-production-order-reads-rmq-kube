@@ -29,14 +29,18 @@ type Message struct {
 	Item                              *[]Item                              `json:"Item"`
 	ItemComponent                     *[]ItemComponent                     `json:"ItemComponent"`
 	ItemComponentDeliveryScheduleLine *[]ItemComponentDeliveryScheduleLine `json:"ItemComponentDeliveryScheduleLine"`
+	ItemComponentPricingElement		  *[]ItemComponentPricingElement	   `json:"ItemComponentPricingElement"`
 	ItemComponentCosting              *[]ItemComponentCosting              `json:"ItemComponentCosting"`
 	ItemOperation                     *[]ItemOperation                     `json:"ItemOperation"`
 	ItemOperationComponent            *[]ItemOperationComponent            `json:"ItemOperationComponent"`
 	ItemOperationCosting              *[]ItemOperationCosting              `json:"ItemOperationCosting"`
+	Address                           *[]Address                           `json:"Address"`
+	Partner                           *[]Partner                           `json:"v"`
 }
 
 type Header struct {
 	ProductionOrder                                    int      `json:"ProductionOrder"`
+	ProductionOrderDate                                string   `json:"ProductionOrderDate"`
 	SupplyChainRelationshipID                          int      `json:"SupplyChainRelationshipID"`
 	SupplyChainRelationshipProductionPlantID           int      `json:"SupplyChainRelationshipProductionPlantID"`
 	SupplyChainRelationshipDeliveryID                  int      `json:"SupplyChainRelationshipDeliveryID"`
@@ -84,6 +88,8 @@ type Header struct {
 	OrderID                                            *int     `json:"OrderID"`
 	OrderItem                                          *int     `json:"OrderItem"`
 	ProductionOrderHeaderText                          *string  `json:"ProductionOrderHeaderText"`
+	CertificateAuthorityChain        				   *string  `json:"CertificateAuthorityChain"`
+	UsageControlChain        		 				   *string  `json:"UsageControlChain"`
 	CreationDate                                       string   `json:"CreationDate"`
 	CreationTime                                       string   `json:"CreationTime"`
 	LastChangeDate                                     string   `json:"LastChangeDate"`
@@ -99,6 +105,7 @@ type Header struct {
 type Item struct {
 	ProductionOrder                               int      `json:"ProductionOrder"`
 	ProductionOrderItem                           int      `json:"ProductionOrderItem"`
+	ProductionOrderItemDate                       string   `json:"ProductionOrderItemDate"`
 	PrecedingProductionOrderItem                  *int     `json:"PrecedingProductionOrderItem"`
 	FollowingProductionOrderItem                  *int     `json:"FollowingProductionOrderItem"`
 	SupplyChainRelationshipID                     int      `json:"SupplyChainRelationshipID"`
@@ -269,6 +276,38 @@ type ItemComponentDeliveryScheduleLine struct {
 	IsMarkedForDeletion                        *bool    `json:"IsMarkedForDeletion"`
 }
 
+type ItemComponentPricingElement struct {
+	ProductionOrder             int      `json:"ProductionOrder"`
+	ProductionOrderItem         int      `json:"ProductionOrderItem"`
+	BillOfMaterial				int      `json:"BillOfMaterial"`
+	BillOfMaterialItem			int      `json:"BillOfMaterialItem"`
+	PricingProcedureCounter		int      `json:"PricingProcedureCounter"`
+	SupplyChainRelationshipID	int      `json:"SupplyChainRelationshipID"`
+	ComponentProductBuyer		int      `json:"ComponentProductBuyer"`
+	ComponentProductSeller		int      `json:"ComponentProductSeller"`
+	ConditionRecord             int      `json:"ConditionRecord"`
+	ConditionSequentialNumber   int      `json:"ConditionSequentialNumber"`
+	ConditionType               string   `json:"ConditionType"`
+	PricingDate                 string   `json:"PricingDate"`
+	ConditionRateValue          float32  `json:"ConditionRateValue"`
+	ConditionRateValueUnit      int      `json:"ConditionRateValueUnit"`
+	ConditionScaleQuantity      int      `json:"ConditionScaleQuantity"`
+	ConditionCurrency           string   `json:"ConditionCurrency"`
+	ConditionQuantity           float32  `json:"ConditionQuantity"`
+	TaxCode                     *string  `json:"TaxCode"`
+	ConditionAmount             float32  `json:"ConditionAmount"`
+	TransactionCurrency         string   `json:"TransactionCurrency"`
+	ConditionIsManuallyChanged  *bool    `json:"ConditionIsManuallyChanged"`
+	CreationDate                string   `json:"CreationDate"`
+	CreationTime                string   `json:"CreationTime"`
+	LastChangeDate              string   `json:"LastChangeDate"`
+	LastChangeTime              string   `json:"LastChangeTime"`
+	IsReleased                  *bool    `json:"IsReleased"`
+	IsLocked                    *bool    `json:"IsLocked"`
+	IsCancelled                 *bool    `json:"IsCancelled"`
+	IsMarkedForDeletion         *bool    `json:"IsMarkedForDeletion"`
+}
+
 type ItemComponentCosting struct {
 	ProductionOrder     int     `json:"ProductionOrder"`
 	ProductionOrderItem int     `json:"ProductionOrderItem"`
@@ -292,7 +331,7 @@ type ItemOperation struct {
 	Operations                                      int      `json:"Operations"`
 	OperationsItem                                  int      `json:"OperationsItem"`
 	OperationID                                     int      `json:"OperationID"`
-	OperationType                            		string   `json:"OperationType"`
+	OperationType                                   string   `json:"OperationType"`
 	SupplyChainRelationshipID                       int      `json:"SupplyChainRelationshipID"`
 	SupplyChainRelationshipDeliveryID               int      `json:"SupplyChainRelationshipDeliveryID"`
 	SupplyChainRelationshipDeliveryPlantID          int      `json:"SupplyChainRelationshipDeliveryPlantID"`
@@ -435,4 +474,33 @@ type ItemOperationCosting struct {
 	IsLocked            *bool   `json:"IsLocked"`
 	IsCancelled         *bool   `json:"IsCancelled"`
 	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
+}
+
+type Partner struct {
+	ProductionOrder         int     `json:"ProductionOrder"`
+	PartnerFunction         string  `json:"SupplyChainRelationshipID"`
+	BusinessPartner         int     `json:"SupplyChainRelationshipProductionPlantID"`
+	BusinessPartnerFullName *string `json:"SupplyChainRelationshipDeliveryID"`
+	BusinessPartnerName     *string `json:"SupplyChainRelationshipDeliveryPlantID"`
+	Organization            *string `json:"ProductionOrderType"`
+	Country                 *string `json:"Product"`
+	Language                *string `json:"Buyer"`
+	Currency                *string `json:"Seller"`
+	ExternalDocumentID      *string `json:"OwnerProductionPlantBusinessPartner"`
+	AddressID               *int    `json:"OwnerProductionPlant"`
+	EmailAddress            *string `json:"OwnerProductionPlantStorageLocation"`
+}
+
+type Address struct {
+	ProductionOrder int     `json:"ProductionOrder"`
+	AddressID       int     `json:"AddressID"`
+	PostalCode      *string `json:"PostalCode"`
+	LocalRegion     *string `json:"LocalRegion"`
+	Country         *string `json:"Country"`
+	District        *string `json:"District"`
+	StreetName      *string `json:"StreetName"`
+	CityName        *string `json:"CityName"`
+	Building        *string `json:"Building"`
+	Floor           *int    `json:"Floor"`
+	Room            *int    `json:"Room"`
 }

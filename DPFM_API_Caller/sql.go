@@ -28,6 +28,8 @@ func (c *DPFMAPICaller) readSqlProcess(
 	var itemOperation *[]dpfm_api_output_formatter.ItemOperation
 	var itemOperationComponent *[]dpfm_api_output_formatter.ItemOperationComponent
 	var itemOperationCosting *[]dpfm_api_output_formatter.ItemOperationCosting
+	var address *[]dpfm_api_output_formatter.Address
+	var partner *[]dpfm_api_output_formatter.Partner
 
 	for _, fn := range accepter {
 		switch fn {
@@ -87,6 +89,15 @@ func (c *DPFMAPICaller) readSqlProcess(
 			func() {
 				header = c.HeadersByOwnerProductionPlantBusinessPartner(mtx, input, output, errs, log)
 			}()
+		case "Address":
+			func() {
+				address = c.Address(mtx, input, output, errs, log)
+			}()
+		case "Partner":
+			func() {
+				partner = c.Partner(mtx, input, output, errs, log)
+			}()
+
 		default:
 		}
 		if len(*errs) != 0 {
@@ -103,6 +114,8 @@ func (c *DPFMAPICaller) readSqlProcess(
 		ItemOperation:                     itemOperation,
 		ItemOperationComponent:            itemOperationComponent,
 		ItemOperationCosting:              itemOperationCosting,
+		Address:            address,
+		Partner:              partner,
 	}
 	return data
 }
@@ -693,3 +706,4 @@ func (c *DPFMAPICaller) ItemOperationCosting(
 	}
 	return data
 }
+

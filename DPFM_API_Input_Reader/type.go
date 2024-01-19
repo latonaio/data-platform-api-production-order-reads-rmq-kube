@@ -101,6 +101,7 @@ type InputParameters struct {
 
 type Header struct {
 	ProductionOrder                                    int         `json:"ProductionOrder"`
+	ProductionOrderDate                                *string	   `json:"ProductionOrderDate"`
 	SupplyChainRelationshipID                          *int        `json:"SupplyChainRelationshipID"`
 	SupplyChainRelationshipProductionPlantID           *int        `json:"SupplyChainRelationshipProductionPlantID"`
 	SupplyChainRelationshipDeliveryID                  *int        `json:"SupplyChainRelationshipDeliveryID"`
@@ -148,6 +149,8 @@ type Header struct {
 	OrderID                                            *int        `json:"OrderID"`
 	OrderItem                                          *int        `json:"OrderItem"`
 	ProductionOrderHeaderText                          *string     `json:"ProductionOrderHeaderText"`
+	CertificateAuthorityChain        				   *string 	   `json:"CertificateAuthorityChain"`
+	UsageControlChain        		 				   *string     `json:"UsageControlChain"`
 	CreationDate                                       *string     `json:"CreationDate"`
 	CreationTime                                       *string     `json:"CreationTime"`
 	LastChangeDate                                     *string     `json:"LastChangeDate"`
@@ -166,6 +169,7 @@ type Header struct {
 type Item struct {
 	ProductionOrder                               int             `json:"ProductionOrder"`
 	ProductionOrderItem                           int             `json:"ProductionOrderItem"`
+	ProductionOrderItemDate                       *string  		  `json:"ProductionOrderItemDate"`
 	PrecedingProductionOrderItem                  *int            `json:"PrecedingProductionOrderItem"`
 	FollowingProductionOrderItem                  *int            `json:"FollowingProductionOrderItem"`
 	SupplyChainRelationshipID                     *int            `json:"SupplyChainRelationshipID"`
@@ -298,6 +302,7 @@ type ItemComponent struct {
 	IsCancelled                                    *bool                               `json:"IsCancelled"`
 	IsMarkedForDeletion                            *bool                               `json:"IsMarkedForDeletion"`
 	ItemComponentDeliveryScheduleLine              []ItemComponentDeliveryScheduleLine `json:"ItemComponentDeliveryScheduleLine"`
+	ItemComponentPricingElement              	   []ItemComponentPricingElement	   `json:"ItemComponentPricingElement"`
 	ItemComponentCosting                           []ItemComponentCosting              `json:"ItemComponentCosting"`
 }
 
@@ -338,6 +343,38 @@ type ItemComponentDeliveryScheduleLine struct {
 	IsLocked                                   *bool    `json:"IsLocked"`
 	IsCancelled                                *bool    `json:"IsCancelled"`
 	IsMarkedForDeletion                        *bool    `json:"IsMarkedForDeletion"`
+}
+
+type ItemComponentPricingElement struct {
+	ProductionOrder             int      `json:"ProductionOrder"`
+	ProductionOrderItem         int      `json:"ProductionOrderItem"`
+	BillOfMaterial				int      `json:"BillOfMaterial"`
+	BillOfMaterialItem			int      `json:"BillOfMaterialItem"`
+	PricingProcedureCounter		int      `json:"PricingProcedureCounter"`
+	SupplyChainRelationshipID	*int     `json:"SupplyChainRelationshipID"`
+	ComponentProductBuyer		*int     `json:"ComponentProductBuyer"`
+	ComponentProductSeller		*int     `json:"ComponentProductSeller"`
+	ConditionRecord             *int     `json:"ConditionRecord"`
+	ConditionSequentialNumber   *int     `json:"ConditionSequentialNumber"`
+	ConditionType               *string  `json:"ConditionType"`
+	PricingDate                 *string  `json:"PricingDate"`
+	ConditionRateValue          *float32 `json:"ConditionRateValue"`
+	ConditionRateValueUnit      *int     `json:"ConditionRateValueUnit"`
+	ConditionScaleQuantity      *int     `json:"ConditionScaleQuantity"`
+	ConditionCurrency           *string  `json:"ConditionCurrency"`
+	ConditionQuantity           *float32 `json:"ConditionQuantity"`
+	TaxCode                     *string  `json:"TaxCode"`
+	ConditionAmount             *float32 `json:"ConditionAmount"`
+	TransactionCurrency         *string  `json:"TransactionCurrency"`
+	ConditionIsManuallyChanged  *bool    `json:"ConditionIsManuallyChanged"`
+	CreationDate                *string  `json:"CreationDate"`
+	CreationTime                *string  `json:"CreationTime"`
+	LastChangeDate              *string  `json:"LastChangeDate"`
+	LastChangeTime              *string  `json:"LastChangeTime"`
+	IsReleased                  *bool    `json:"IsReleased"`
+	IsLocked                    *bool    `json:"IsLocked"`
+	IsCancelled                 *bool    `json:"IsCancelled"`
+	IsMarkedForDeletion         *bool    `json:"IsMarkedForDeletion"`
 }
 
 type ItemComponentCosting struct {

@@ -14,6 +14,7 @@ func ConvertToHeader(rows *sql.Rows) (*[]Header, error) {
 		pm := Header{}
 		err := rows.Scan(
 			&pm.ProductionOrder,
+			&pm.ProductionOrderDate,
 			&pm.SupplyChainRelationshipID,
 			&pm.SupplyChainRelationshipProductionPlantID,
 			&pm.SupplyChainRelationshipDeliveryID,
@@ -61,6 +62,8 @@ func ConvertToHeader(rows *sql.Rows) (*[]Header, error) {
 			&pm.OrderID,
 			&pm.OrderItem,
 			&pm.ProductionOrderHeaderText,
+			&pm.CertificateAuthorityChain,
+			&pm.UsageControlChain,
 			&pm.CreationDate,
 			&pm.CreationTime,
 			&pm.LastChangeDate,
@@ -80,6 +83,7 @@ func ConvertToHeader(rows *sql.Rows) (*[]Header, error) {
 		data := pm
 		header = append(header, Header{
 			ProductionOrder:                                  data.ProductionOrder,
+			ProductionOrderDate:                              data.ProductionOrderDate,
 			SupplyChainRelationshipID:                        data.SupplyChainRelationshipID,
 			SupplyChainRelationshipProductionPlantID:         data.SupplyChainRelationshipProductionPlantID,
 			SupplyChainRelationshipDeliveryID:                data.SupplyChainRelationshipDeliveryID,
@@ -127,6 +131,8 @@ func ConvertToHeader(rows *sql.Rows) (*[]Header, error) {
 			OrderID:                                            data.OrderID,
 			OrderItem:                                          data.OrderItem,
 			ProductionOrderHeaderText:                          data.ProductionOrderHeaderText,
+			CertificateAuthorityChain:		  					data.CertificateAuthorityChain,
+			UsageControlChain:		  		  					data.UsageControlChain,
 			CreationDate:                                       data.CreationDate,
 			CreationTime:                                       data.CreationTime,
 			LastChangeDate:                                     data.LastChangeDate,
@@ -157,6 +163,7 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 		err := rows.Scan(
 			&pm.ProductionOrder,
 			&pm.ProductionOrderItem,
+			&pm.ProductionOrderItemDate,
 			&pm.PrecedingProductionOrderItem,
 			&pm.FollowingProductionOrderItem,
 			&pm.SupplyChainRelationshipID,
@@ -239,6 +246,7 @@ func ConvertToItem(rows *sql.Rows) (*[]Item, error) {
 		item = append(item, Item{
 			ProductionOrder:                               data.ProductionOrder,
 			ProductionOrderItem:                           data.ProductionOrderItem,
+			ProductionOrderItemDate:                       data.ProductionOrderItemDate,
 			PrecedingProductionOrderItem:                  data.PrecedingProductionOrderItem,
 			FollowingProductionOrderItem:                  data.FollowingProductionOrderItem,
 			SupplyChainRelationshipID:                     data.SupplyChainRelationshipID,
@@ -455,6 +463,58 @@ func ConvertToItemComponentDeliveryScheduleLine(rows *sql.Rows) (*[]ItemComponen
 	}
 
 	return &itemComponentDeliveryScheduleLine, nil
+}
+
+func ConvertToItemComponentPricingElement(rows *sql.Rows) (*[]ItemComponentPricingElement, error) {
+	defer rows.Close()
+	itemComponentPricingElement := make([]ItemComponentPricingElement, 0)
+	i := 0
+	for rows.Next() {
+		i++
+		pm := ItemComponentPricingElement{}
+		err := rows.Scan(
+			&pm.ProductionOrder,
+			&pm.ProductionOrderItem,
+			&pm.BillOfMaterial,
+			&pm.BillOfMaterialItem,
+			&pm.PricingProcedureCounter,
+			&pm.SupplyChainRelationshipID,
+			&pm.ComponentProductBuyer,
+			&pm.ComponentProductSeller,
+			&pm.ConditionRecord,
+			&pm.ConditionSequentialNumber,
+			&pm.ConditionType,
+			&pm.PricingDate,
+			&pm.ConditionRateValue,
+			&pm.ConditionRateValueUnit,
+			&pm.ConditionScaleQuantity,
+			&pm.ConditionCurrency,
+			&pm.ConditionQuantity,
+			&pm.TaxCode,
+			&pm.ConditionAmount,
+			&pm.TransactionCurrency,
+			&pm.ConditionIsManuallyChanged,
+			&pm.CreationDate,
+			&pm.CreationTime,
+			&pm.LastChangeDate,
+			&pm.LastChangeTime,
+			&pm.IsReleased,
+			&pm.IsLocked,
+			&pm.IsCancelled,
+			&pm.IsMarkedForDeletion,
+		)
+		if err != nil {
+			fmt.Printf("err = %+v \n", err)
+			return &itemComponentPricingElement, err
+		}
+		itemComponentPricingElement = append(itemComponentPricingElement, pm)
+	}
+	if i == 0 {
+		fmt.Printf("DBに対象のレコードが存在しません。")
+		return &itemComponentPricingElement, nil
+	}
+
+	return &itemComponentPricingElement, nil
 }
 
 func ConvertToItemComponentCosting(rows *sql.Rows) (*[]ItemComponentCosting, error) {
